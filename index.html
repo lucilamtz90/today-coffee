@@ -730,7 +730,7 @@ input[type="color"] {
 /* ── Finish button ── */
 .sidebar-finish {
   padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
 
 .btn-finish {
@@ -789,8 +789,12 @@ input[type="color"] {
   font-family: var(--font-serif);
   font-size: 17px;
   font-weight: 300;
-  flex: 1;
-  text-align: center;
+}
+
+.mobile-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .hamburger {
@@ -834,11 +838,13 @@ input[type="color"] {
 
 <!-- Mobile bar -->
 <div class="mobile-bar">
-  <button class="btn-finish-mobile" id="btn-finish-mobile" onclick="showSubmitConfirmation()">Terminar evaluación</button>
   <span class="mobile-brand">Today Coffee</span>
-  <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="mobile-bar-right">
+    <button class="btn-finish-mobile" id="btn-finish-mobile" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </div>
 
 <div class="overlay" id="overlay"></div>
@@ -885,13 +891,13 @@ input[type="color"] {
     <div class="brand-sub">Librería de colores</div>
   </div>
 
-  <div class="sidebar-finish" id="sidebar-finish">
-    <button class="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
-  </div>
-
   <nav class="sidebar-nav" id="palette-nav">
     <div class="nav-section-label">Paletas</div>
   </nav>
+
+  <div class="sidebar-finish" id="sidebar-finish">
+    <button class="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+  </div>
 
   <div class="sidebar-footer" id="sidebar-footer" style="display:none;">
     <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">Design Review</button>
