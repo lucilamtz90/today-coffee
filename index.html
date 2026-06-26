@@ -727,6 +727,29 @@ input[type="color"] {
 
 .toast.show { opacity: 1; transform: translateY(0); }
 
+/* ── Finish button ── */
+.sidebar-finish {
+  padding: 16px 20px 0;
+}
+
+.btn-finish {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.btn-finish:hover { opacity: 0.76; }
+
 /* ── Mobile ── */
 .mobile-bar {
   display: none;
@@ -798,11 +821,29 @@ input[type="color"] {
     <div class="welcome-body">
       Hemos preparado seis paletas de color pensadas en tu marca, su estilo y visión.
       Explora cada una con calma, vota los colores que más te representan y deja tus
-      comentarios — eso nos ayudará a definir la dirección perfecta para tu identidad visual.
+      comentarios. Cuando termines, haz clic en <strong>Terminar evaluación</strong> en el
+      menú lateral para guardar y enviar tus respuestas.
     </div>
     <div class="welcome-actions">
       <button class="btn btn-outline" onclick="dismissWelcome()">Después</button>
-      <button class="btn btn-dark" onclick="dismissWelcome()">Empezar</button>
+      <button class="btn btn-dark" onclick="startEvaluation()">Empezar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation overlay -->
+<div class="welcome-backdrop" id="confirm-backdrop" style="display:none;">
+  <div class="welcome-card">
+    <div class="welcome-eyebrow">Today Coffee · Evaluación</div>
+    <div class="welcome-title">¿Listo para enviar?</div>
+    <div class="welcome-body">
+      Estás a punto de enviar tu evaluación de las paletas de colores. Tus votos,
+      calificaciones y comentarios quedarán registrados. Puedes enviar cuantas veces
+      quieras — cada envío se guarda por separado.
+    </div>
+    <div class="welcome-actions">
+      <button class="btn btn-outline" onclick="cancelSubmit()">Seguir evaluando</button>
+      <button class="btn btn-dark" onclick="submitFullEvaluation()">Enviar mis respuestas</button>
     </div>
   </div>
 </div>
@@ -817,6 +858,10 @@ input[type="color"] {
   <nav class="sidebar-nav" id="palette-nav">
     <div class="nav-section-label">Paletas</div>
   </nav>
+
+  <div class="sidebar-finish" id="sidebar-finish">
+    <button class="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+  </div>
 
   <div class="sidebar-footer" id="sidebar-footer" style="display:none;">
     <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">Design Review</button>
@@ -1174,16 +1219,13 @@ function vote(ci, dir) {
   renderNav();
 }
 
-// ── Feedback submit ──
+// ── Feedback submit (local only — Sheets via Terminar evaluación) ──
 function submitFeedback() {
   const name = document.getElementById('fb-name').value.trim();
   const text = document.getElementById('fb-text').value.trim();
   if (!text) { showToast('Escribe tu comentario antes de enviar.'); return; }
 
   const st = getState();
-  const ps = st.palettes[current];
-  const p  = PALETTES[current];
-
   st.palettes[current].feedback.push({
     id:       Date.now(),
     name:     name || 'Anónimo',
@@ -1194,20 +1236,6 @@ function submitFeedback() {
     reviewed: false
   });
   saveState(st);
-
-  // Log to Google Sheets
-  const votesUp   = ps.swatches.map((sw,i) => sw.userVote==='up'  ? ps.colors[i].name : null).filter(Boolean).join(', ');
-  const votesDown = ps.swatches.map((sw,i) => sw.userVote==='dn'  ? ps.colors[i].name : null).filter(Boolean).join(', ');
-  logToSheets({
-    palette:   p.name,
-    name:      name || 'Anónimo',
-    comment:   text,
-    rating:    pendingStar || '',
-    votesUp,
-    votesDown,
-    type:      'feedback'
-  });
-
   clearFeedbackForm();
 
   const ok = document.getElementById('save-ok');
@@ -1216,7 +1244,51 @@ function submitFeedback() {
 
   renderFeedbackList(st.palettes[current]);
   renderNav();
-  showToast('Comentario enviado. Gracias.');
+  showToast('Comentario guardado. Recuerda dar clic en Terminar evaluación para enviar.');
+}
+
+// ── Confirmation overlay ──
+function showSubmitConfirmation() {
+  const el = document.getElementById('confirm-backdrop');
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('show'));
+}
+
+function cancelSubmit() {
+  const el = document.getElementById('confirm-backdrop');
+  el.classList.remove('show');
+  setTimeout(() => el.style.display = 'none', 280);
+}
+
+// ── Full evaluation submit → Google Sheets ──
+function submitFullEvaluation() {
+  const st  = getState();
+  const now = new Date();
+
+  // Build one entry per palette with all data
+  const palettes = PALETTES.map((p, i) => {
+    const ps       = st.palettes[i];
+    const avgR     = ps.ratings.length
+      ? (ps.ratings.reduce((a,b) => a + b, 0) / ps.ratings.length).toFixed(1) : '';
+    const votesUp  = ps.swatches.map((sw,ci) => sw.userVote === 'up' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
+    const votesDown= ps.swatches.map((sw,ci) => sw.userVote === 'dn' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
+    const comments = ps.feedback.map(fb => `${fb.name}: ${fb.text}`).join(' | ');
+    return { name: p.name, rating: avgR, votesUp, votesDown, comments };
+  });
+
+  // Track submission number per session
+  const subKey = 'tc_sub_count';
+  const subNum = (parseInt(sessionStorage.getItem(subKey) || '0')) + 1;
+  sessionStorage.setItem(subKey, String(subNum));
+
+  logToSheets({
+    type:             'full_evaluation',
+    submissionNumber: subNum,
+    palettes
+  });
+
+  cancelSubmit();
+  showToast('Evaluación enviada. ¡Muchas gracias!');
 }
 
 function clearFeedbackForm() {
@@ -1240,6 +1312,7 @@ function toggleAdmin() {
   adminMode = !adminMode;
   document.getElementById('client-view').classList.toggle('visible', !adminMode);
   document.getElementById('admin-view').classList.toggle('visible', adminMode);
+  document.getElementById('sidebar-finish').style.display = adminMode ? 'none' : 'block';
   const btn = document.getElementById('admin-btn');
   btn.textContent = adminMode ? 'Vista cliente' : 'Design Review';
   btn.classList.toggle('on', adminMode);
@@ -1435,6 +1508,10 @@ function closeMobile() {
 }
 
 // ── Welcome overlay ──
+function startEvaluation() {
+  dismissWelcome();
+}
+
 function dismissWelcome() {
   const el = document.getElementById('welcome-backdrop');
   el.style.opacity = '0';

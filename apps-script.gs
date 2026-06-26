@@ -15,32 +15,41 @@ function doPost(e) {
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
       const headers = [
-        'Fecha', 'Hora', 'Session ID', 'Paleta',
-        'Nombre', 'Comentario', 'Estrellas',
-        'Colores favoritos', 'Colores no favoritos'
+        'Fecha', 'Hora', 'Session ID', 'Envío #',
+        'Paleta', 'Estrellas', 'Colores favoritos',
+        'Colores no favoritos', 'Comentarios'
       ];
       const headerRange = sheet.getRange(1, 1, 1, headers.length);
       headerRange.setValues([headers]);
       headerRange.setFontWeight('bold');
       headerRange.setBackground('#F5F0E8');
       sheet.setFrozenRows(1);
-      sheet.setColumnWidth(6, 320); // Comentario más ancho
+      sheet.setColumnWidth(5, 160); // Paleta
+      sheet.setColumnWidth(7, 200); // Colores favoritos
+      sheet.setColumnWidth(8, 200); // Colores no favoritos
+      sheet.setColumnWidth(9, 360); // Comentarios
     }
 
-    const now = new Date();
-    const tz  = 'America/Mexico_City';
+    if (data.type === 'full_evaluation' && Array.isArray(data.palettes)) {
+      const now = new Date();
+      const tz  = 'America/Mexico_City';
+      const fecha = Utilities.formatDate(now, tz, 'dd/MM/yyyy');
+      const hora  = Utilities.formatDate(now, tz, 'HH:mm:ss');
 
-    sheet.appendRow([
-      Utilities.formatDate(now, tz, 'dd/MM/yyyy'),
-      Utilities.formatDate(now, tz, 'HH:mm:ss'),
-      data.sessionId  || '',
-      data.palette    || '',
-      data.name       || 'Anónimo',
-      data.comment    || '',
-      data.rating     ? `${data.rating}/5` : '',
-      data.votesUp    || '',
-      data.votesDown  || ''
-    ]);
+      data.palettes.forEach(p => {
+        sheet.appendRow([
+          fecha,
+          hora,
+          data.sessionId        || '',
+          data.submissionNumber || 1,
+          p.name                || '',
+          p.rating              ? `${p.rating}/5` : '',
+          p.votesUp             || '',
+          p.votesDown           || '',
+          p.comments            || ''
+        ]);
+      });
+    }
 
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'ok' }))
@@ -63,18 +72,13 @@ function doGet(e) {
 /*
 ── INSTRUCCIONES DE DESPLIEGUE ──────────────────────────────────
 
-1. Ve a https://script.google.com
-2. Clic en "Nuevo proyecto"
-3. Borra el código de ejemplo y pega TODO este archivo
-4. Guarda (Cmd+S) con el nombre "Today Coffee – Sheets"
-5. Clic en "Implementar" → "Nueva implementación"
-6. Tipo: "Aplicación web"
-7. Configuración:
-     Ejecutar como:        Yo (tu cuenta de Google)
-     Quién tiene acceso:   Cualquier persona
-8. Clic en "Implementar"
-9. Autoriza los permisos cuando te lo pida
-10. Copia la URL que aparece ("URL de la aplicación web")
-11. Mándame esa URL y yo la conecto al HTML
+1. Ve a https://script.google.com y abre el proyecto existente
+   (o crea uno nuevo y pega todo este código)
+2. Guarda con Cmd+S
+3. Clic en "Implementar" → "Administrar implementaciones"
+4. En tu implementación activa, clic en el lápiz (editar)
+5. Cambia la versión a "Nueva versión"
+6. Clic en "Implementar"
+   (La URL del endpoint NO cambia — no necesitas actualizar el HTML)
 
 ──────────────────────────────────────────────────────────────── */
