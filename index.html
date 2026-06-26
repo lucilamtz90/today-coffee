@@ -1295,16 +1295,17 @@ function submitFullEvaluation() {
   const st  = getState();
   const now = new Date();
 
-  // Build one entry per palette with all data
+  // Build one entry per palette — only include palettes the user actually interacted with
   const palettes = PALETTES.map((p, i) => {
-    const ps       = st.palettes[i];
-    const avgR     = ps.ratings.length
+    const ps        = st.palettes[i];
+    const avgR      = ps.ratings.length
       ? (ps.ratings.reduce((a,b) => a + b, 0) / ps.ratings.length).toFixed(1) : '';
-    const votesUp  = ps.swatches.map((sw,ci) => sw.userVote === 'up' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
-    const votesDown= ps.swatches.map((sw,ci) => sw.userVote === 'dn' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
-    const comments = ps.feedback.map(fb => `${fb.name}: ${fb.text}`).join(' | ');
-    return { name: p.name, rating: avgR, votesUp, votesDown, comments };
-  });
+    const votesUp   = ps.swatches.map((sw,ci) => sw.userVote === 'up' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
+    const votesDown = ps.swatches.map((sw,ci) => sw.userVote === 'dn' ? ps.colors[ci].name : null).filter(Boolean).join(', ');
+    const comments  = ps.feedback.map(fb => `${fb.name}: ${fb.text}`).join(' | ');
+    if (!avgR && !votesUp && !votesDown && !comments) return null;
+    return { paletteName: p.name, rating: avgR, votesUp, votesDown, comments };
+  }).filter(Boolean);
 
   // Track submission number per session
   const subKey = 'tc_sub_count';
