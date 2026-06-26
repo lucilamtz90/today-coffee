@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Today Coffee — Color Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --sand:        #F5F0E8;
+  --sand-deep:   #EDE6D6;
+  --ink:         #1A1A1A;
+  --ink-soft:    #3D3D3D;
+  --muted:       #8A8A8A;
+  --muted-light: #C5C5C5;
+  --white:       #FFFFFF;
+  --surface:     #FAFAF7;
+  --border:      #E5E0D5;
+  --accent:      #6B7A5A;
+  --accent-pale: #E8EDE0;
+  --accent-mid:  #8A9970;
+  --gold:        #C5A55A;
+  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --font-sans:   'DM Sans', system-ui, sans-serif;
+  --radius:      16px;
+  --radius-sm:   10px;
+  --sidebar-w:   256px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+}
+
+.sidebar-brand {
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0 16px;
+  overflow-y: auto;
+}
+
+.nav-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+  padding: 0 24px;
+  margin-bottom: 8px;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 10px 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+
+.tab-btn:hover { background: var(--sand); color: var(--ink); }
+
+.tab-btn.active {
+  background: var(--accent-pale);
+  color: var(--accent);
+  font-weight: 500;
+  border-left-color: var(--accent);
+}
+
+.tab-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.12);
+}
+
+.tab-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-count {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--sand);
+  padding: 2px 7px;
+  border-radius: 20px;
+  line-height: 1.4;
+}
+
+.tab-new-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.admin-btn {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  background: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.admin-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-pale); }
+.admin-btn.on { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+/* ── Main ── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 52px 56px 64px;
+  max-width: calc(100% - var(--sidebar-w));
+}
+
+/* ── Page sections ── */
+.view { display: none; }
+.view.visible { display: block; }
+
+/* ── Palette header ── */
+.palette-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 24px;
+}
+
+.palette-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.palette-title {
+  font-family: var(--font-serif);
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+/* Stars */
+.overall-rating { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+
+.rating-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stars { display: flex; gap: 3px; }
+
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--muted-light);
+  transition: color 0.1s;
+  padding: 2px;
+  line-height: 1;
+}
+
+.star-btn.lit { color: var(--gold); }
+
+.rating-avg {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+  min-height: 14px;
+}
+
+/* ── Palette image ── */
+.palette-img-wrap { margin-bottom: 44px; }
+
+.palette-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: block;
+}
+
+/* ── Section label ── */
+.section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+/* ── Swatches ── */
+.swatches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 14px;
+  margin-bottom: 44px;
+}
+
+.swatch-card {
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,0,0,0.07);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.swatch-color { height: 96px; }
+
+.swatch-info { padding: 10px 12px; }
+
+.swatch-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.swatch-hex {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 10px;
+}
+
+.swatch-votes {
+  display: flex;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.vote-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--muted);
+  transition: all 0.12s;
+  line-height: 1;
+}
+
+.vote-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
+.vote-btn.up.on  { background: var(--accent-pale); border-color: var(--accent); color: var(--accent); }
+.vote-btn.dn.on  { background: #FDF0F0; border-color: #C0524E; color: #C0524E; }
+
+/* ── Feedback box ── */
+.feedback-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  margin-bottom: 36px;
+}
+
+.feedback-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.feedback-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.field:focus { border-color: var(--accent); }
+.field::placeholder { color: var(--muted-light); }
+
+textarea.field {
+  resize: vertical;
+  min-height: 96px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.save-ok {
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.save-ok.show { opacity: 1; }
+
+.btn {
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+
+.btn-dark { background: var(--ink); color: var(--white); }
+.btn-dark:hover { opacity: 0.78; }
+.btn-outline { background: none; color: var(--ink-soft); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--ink); }
+
+/* ── Feedback list ── */
+.fb-list { margin-bottom: 44px; }
+
+.fb-list-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.fb-item {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  margin-bottom: 8px;
+}
+
+.fb-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.fb-item-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.fb-item-date { font-size: 10px; color: var(--muted); }
+.fb-item-stars { font-size: 12px; color: var(--gold); margin-bottom: 4px; }
+.fb-item-text { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+
+/* ── Admin view ── */
+.admin-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-title {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-sm {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--ink-soft);
+  transition: all 0.12s;
+}
+
+.btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+.btn-sm.danger { color: #C0524E; border-color: #E0B0AE; }
+.btn-sm.danger:hover { border-color: #C0524E; background: #FDF0F0; }
+
+.admin-palette-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.admin-palette-name {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.badge-green { background: var(--accent-pale); color: var(--accent); }
+.badge-gold  { background: #FDF8EC; color: #A07020; }
+
+.stats-row {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.stat-val {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Admin swatches */
+.admin-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-swatch {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.admin-swatch-color { height: 64px; }
+
+.admin-swatch-body { padding: 8px 10px; background: var(--white); }
+
+.admin-swatch-name { font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+
+.color-edit-row { display: flex; align-items: center; gap: 5px; margin-bottom: 6px; }
+
+input[type="color"] {
+  width: 22px; height: 22px;
+  border: none; padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+.hex-input {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  width: 72px;
+  outline: none;
+}
+
+.hex-input:focus { border-color: var(--accent); }
+
+.swatch-vote-bar {
+  display: flex;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.vote-up-num { color: var(--accent); }
+.vote-dn-num { color: #C0524E; }
+
+/* Admin feedback */
+.admin-fb-entry {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  margin-bottom: 8px;
+}
+
+.admin-fb-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-fb-author { font-size: 12px; font-weight: 600; color: var(--ink); }
+.admin-fb-date   { font-size: 10px; color: var(--muted); }
+.admin-fb-text   { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+.admin-fb-stars  { font-size: 12px; color: var(--gold); margin-bottom: 4px; }
+
+.mark-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: 10px;
+  font-family: var(--font-sans);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.mark-btn:hover { border-color: var(--accent); color: var(--accent); }
+.mark-btn.done  { color: var(--accent); border-color: var(--accent-pale); background: var(--accent-pale); }
+
+.palette-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+.btn-accent { background: var(--ink); color: var(--white); padding: 9px 18px; border: none; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 12px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
+.btn-accent:hover { opacity: 0.78; }
+.btn-review { background: none; color: var(--accent); border: 1px solid var(--accent); padding: 9px 18px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.12s; }
+.btn-review:hover { background: var(--accent-pale); }
+
+/* ── Updated notice ── */
+.updated-notice {
+  background: var(--accent-pale);
+  border: 1px solid var(--accent-mid);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ── Empty state ── */
+.empty { font-size: 12px; color: var(--muted-light); padding: 16px 0; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  background: var(--ink);
+  color: var(--white);
+  padding: 11px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.22s;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ── Mobile ── */
+.mobile-bar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 56px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-brand { font-family: var(--font-serif); font-size: 17px; font-weight: 300; }
+
+.hamburger {
+  background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; gap: 4.5px; padding: 6px;
+}
+
+.hamburger span { display: block; width: 21px; height: 1.5px; background: var(--ink); }
+
+.overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 99;
+}
+
+.overlay.show { display: block; }
+
+@media (max-width: 820px) {
+  .mobile-bar { display: flex; }
+  .sidebar { transform: translateX(-100%); transition: transform 0.24s ease; z-index: 150; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 80px 24px 48px; max-width: 100%; }
+  .palette-header { flex-direction: column; gap: 18px; }
+  .overall-rating { align-items: flex-start; }
+  .field-row { grid-template-columns: 1fr; }
+  .swatches-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .main { padding: 72px 16px 40px; }
+  .palette-title { font-size: 34px; }
+  .swatches-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feedback-box { padding: 20px; }
+  .stats-row { gap: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile bar -->
+<div class="mobile-bar">
+  <span class="mobile-brand">Today Coffee</span>
+  <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">Today Coffee</div>
+    <div class="brand-sub">Color Library</div>
+  </div>
+
+  <nav class="sidebar-nav" id="palette-nav">
+    <div class="nav-section-label">Paletas</div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">Design Review</button>
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="main">
+
+  <!-- CLIENT VIEW -->
+  <div class="view visible" id="client-view">
+
+    <div class="palette-header">
+      <div>
+        <div class="palette-eyebrow" id="p-eyebrow">Palette 01</div>
+        <div class="palette-title" id="p-title">Palette 1</div>
+      </div>
+      <div class="overall-rating">
+        <div class="rating-label">Calificación general</div>
+        <div class="stars" id="stars">
+          <button class="star-btn" data-v="1">&#9733;</button>
+          <button class="star-btn" data-v="2">&#9733;</button>
+          <button class="star-btn" data-v="3">&#9733;</button>
+          <button class="star-btn" data-v="4">&#9733;</button>
+          <button class="star-btn" data-v="5">&#9733;</button>
+        </div>
+        <div class="rating-avg" id="rating-avg"></div>
+      </div>
+    </div>
+
+    <div class="palette-img-wrap">
+      <img class="palette-img" id="p-img" src="" alt="Palette"/>
+    </div>
+
+    <div class="section-label" id="swatches-label">Colores</div>
+    <div class="swatches-grid" id="swatches-grid"></div>
+
+    <div class="feedback-box">
+      <div class="feedback-title">Comparte tu opinión</div>
+      <div class="feedback-hint">Dinos qué sensaciones evoca esta paleta para Today Coffee.</div>
+      <div class="field-row">
+        <input class="field" id="fb-name" type="text" placeholder="Tu nombre"/>
+        <input class="field" id="fb-email" type="email" placeholder="Correo electrónico (opcional)"/>
+      </div>
+      <textarea class="field" id="fb-text" placeholder="¿Qué colores te llaman la atención? ¿Qué sensación transmite la paleta?"></textarea>
+      <div class="submit-row">
+        <span class="save-ok" id="save-ok">Comentario guardado.</span>
+        <button class="btn btn-outline" onclick="clearFeedbackForm()">Limpiar</button>
+        <button class="btn btn-dark" onclick="submitFeedback()">Enviar comentario</button>
+      </div>
+    </div>
+
+    <div id="fb-list-wrap"></div>
+
+  </div>
+
+  <!-- ADMIN VIEW -->
+  <div class="view" id="admin-view">
+    <div class="admin-header">
+      <div>
+        <div class="palette-eyebrow">Design Review</div>
+        <div class="admin-title">Feedback del cliente</div>
+      </div>
+      <div class="admin-actions">
+        <button class="btn-sm" onclick="exportData()">Exportar JSON</button>
+        <button class="btn-sm danger" onclick="clearData()">Limpiar datos</button>
+      </div>
+    </div>
+    <div id="admin-content"></div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Palette data ──
+const PALETTES = [
+  { id:0, name:'Palette 1', img:'assets/images/palette1.png',
+    colors:[
+      {name:'Almond Cream',     hex:'#F0EAD8'},
+      {name:'Coastal Sage',     hex:'#99ABA6'},
+      {name:'Golden Chamomile', hex:'#D2BF81'},
+      {name:'Meadow Mist',      hex:'#ACB090'},
+      {name:'Olive Grove',      hex:'#6F6C43'}
+    ]
+  },
+  { id:1, name:'Palette 2', img:'assets/images/palette2.png',
+    colors:[
+      {name:'Almond Cream', hex:'#F0EAD8'},
+      {name:'Rum Raisin',   hex:'#583432'},
+      {name:'Coconut Milk', hex:'#F1EEE6'},
+      {name:'Meadow Mist',  hex:'#ACB090'},
+      {name:'Olive Grove',  hex:'#6F6C43'}
+    ]
+  },
+  { id:2, name:'Palette 3', img:'assets/images/palette3.png',
+    colors:[
+      {name:'Moss',       hex:'#31331F'},
+      {name:'Blush',      hex:'#D9BBA0'},
+      {name:'Oat',        hex:'#D5CDBC'},
+      {name:'Terracotta', hex:'#BA8B68'},
+      {name:'Olive',      hex:'#645D3B'}
+    ]
+  },
+  { id:3, name:'Palette 4', img:'assets/images/palette4.png',
+    colors:[
+      {name:'Raw Linen',      hex:'#DCD6BA'},
+      {name:'Almond Bloom',   hex:'#F9F8EB'},
+      {name:'Toasted Sienna', hex:'#9A7844'},
+      {name:'Olive Husk',     hex:'#9F9C6C'},
+      {name:'Forest Seed',    hex:'#555439'}
+    ]
+  },
+  { id:4, name:'Palette 5', img:'assets/images/palette5.png',
+    colors:[
+      {name:'First Frost',  hex:'#DFE0DC'},
+      {name:'Spring',       hex:'#D1DBBD'},
+      {name:'Khaki Linen',  hex:'#C7C2AB'},
+      {name:'Ivy',          hex:'#777E5C'},
+      {name:'Serpentine',   hex:'#283106'}
+    ]
+  },
+  { id:5, name:'Palette 6', img:'assets/images/palette6.png',
+    colors:[
+      {name:'Alocasia',  hex:'#374526'},
+      {name:'Calathea',  hex:'#536940'},
+      {name:'Jade',      hex:'#A8B398'},
+      {name:'Perlite',   hex:'#FAF3E0'}
+    ]
+  }
+];
+
+// ── State ──
+let current   = 0;
+let adminMode = false;
+let hoverStar = 0;
+let pendingStar = 0;
+
+const KEY = 'todaycoffee_colorlib_v1';
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return buildInitState();
+}
+
+function buildInitState() {
+  return {
+    palettes: PALETTES.map(p => ({
+      id: p.id,
+      ratings: [],
+      feedback: [],
+      swatches: p.colors.map(c => ({ hex: c.hex, up: 0, down: 0, userVote: null })),
+      colors:   p.colors.map(c => ({ name: c.name, hex: c.hex })),
+      updated:   false,
+      updatedAt: null
+    }))
+  };
+}
+
+function saveState(st) {
+  localStorage.setItem(KEY, JSON.stringify(st));
+}
+
+function getState() {
+  const st = loadState();
+  // Ensure all palettes exist (schema safety)
+  PALETTES.forEach(p => {
+    if (!st.palettes[p.id]) {
+      st.palettes[p.id] = {
+        id: p.id, ratings: [], feedback: [],
+        swatches: p.colors.map(c => ({ hex: c.hex, up: 0, down: 0, userVote: null })),
+        colors:   p.colors.map(c => ({ name: c.name, hex: c.hex })),
+        updated: false, updatedAt: null
+      };
+    }
+    // Ensure swatches array is correct length
+    while (st.palettes[p.id].swatches.length < p.colors.length) {
+      const i = st.palettes[p.id].swatches.length;
+      st.palettes[p.id].swatches.push({ hex: p.colors[i].hex, up: 0, down: 0, userVote: null });
+    }
+    // Ensure colors array exists
+    if (!st.palettes[p.id].colors || !st.palettes[p.id].colors.length) {
+      st.palettes[p.id].colors = p.colors.map(c => ({ name: c.name, hex: c.hex }));
+    }
+  });
+  return st;
+}
+
+// ── Nav ──
+function renderNav() {
+  const st  = getState();
+  const nav = document.getElementById('palette-nav');
+  nav.innerHTML = '<div class="nav-section-label">Paletas</div>';
+
+  PALETTES.forEach((p, i) => {
+    const ps      = st.palettes[i];
+    const totalV  = ps.swatches.reduce((a, s) => a + s.up + s.down, 0);
+    const hasNew  = ps.feedback.some(f => !f.reviewed);
+    const dotHex  = ps.colors[0] ? ps.colors[0].hex : p.colors[0].hex;
+
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === current && !adminMode ? ' active' : '');
+    btn.onclick   = () => switchPalette(i);
+    btn.innerHTML = `
+      <span class="tab-dot" style="background:${dotHex};"></span>
+      <span>${p.name}</span>
+      <span class="tab-meta">
+        ${hasNew ? '<span class="tab-new-dot"></span>' : ''}
+        ${totalV > 0 ? `<span class="tab-count">${totalV}</span>` : ''}
+      </span>
+    `;
+    nav.appendChild(btn);
+  });
+}
+
+// ── Client view ──
+function renderClientView() {
+  const st = getState();
+  const p  = PALETTES[current];
+  const ps = st.palettes[current];
+
+  document.getElementById('p-eyebrow').textContent = `Palette 0${current + 1}`;
+  document.getElementById('p-title').textContent   = p.name;
+
+  const img = document.getElementById('p-img');
+  img.src = p.img;
+  img.alt = p.name;
+
+  // Stars
+  pendingStar = 0;
+  renderStars(0);
+  updateRatingAvg(ps);
+
+  // Updated notice
+  const existingNotice = document.querySelector('.updated-notice');
+  if (existingNotice) existingNotice.remove();
+  if (ps.updated) {
+    const notice = document.createElement('div');
+    notice.className = 'updated-notice';
+    const d = new Date(ps.updatedAt).toLocaleDateString('es-MX', { day:'numeric', month:'long' });
+    notice.textContent = `El diseñador actualizó esta paleta el ${d}.`;
+    document.getElementById('swatches-label').before(notice);
+  }
+
+  // Swatches
+  const grid = document.getElementById('swatches-grid');
+  grid.innerHTML = '';
+  ps.colors.forEach((color, i) => {
+    const sw = ps.swatches[i] || { up: 0, down: 0, userVote: null };
+    const card = document.createElement('div');
+    card.className = 'swatch-card';
+    card.innerHTML = `
+      <div class="swatch-color" style="background:${color.hex};" title="${color.name}"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">${color.name}</div>
+        <div class="swatch-hex">${color.hex.toUpperCase()}</div>
+        <div class="swatch-votes">
+          <button class="vote-btn up ${sw.userVote==='up'?'on':''}" onclick="vote(${i},'up')">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            ${sw.up}
+          </button>
+          <button class="vote-btn dn ${sw.userVote==='dn'?'on':''}" onclick="vote(${i},'dn')">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
+            ${sw.down}
+          </button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Feedback list
+  renderFeedbackList(ps);
+}
+
+function renderFeedbackList(ps) {
+  const wrap = document.getElementById('fb-list-wrap');
+  if (!ps.feedback.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `
+    <div class="fb-list">
+      <div class="fb-list-label">Comentarios (${ps.feedback.length})</div>
+      ${ps.feedback.map(fb => `
+        <div class="fb-item">
+          <div class="fb-item-top">
+            <span class="fb-item-name">${escHtml(fb.name)}</span>
+            <span class="fb-item-date">${fb.date}</span>
+          </div>
+          ${fb.rating ? `<div class="fb-item-stars">${'★'.repeat(fb.rating)}${'☆'.repeat(5-fb.rating)}</div>` : ''}
+          <div class="fb-item-text">${escHtml(fb.text)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ── Stars ──
+function renderStars(v) {
+  document.querySelectorAll('#stars .star-btn').forEach(btn => {
+    btn.classList.toggle('lit', parseInt(btn.dataset.v) <= v);
+  });
+}
+
+function updateRatingAvg(ps) {
+  const el = document.getElementById('rating-avg');
+  if (!ps.ratings.length) { el.textContent = ''; return; }
+  const avg = (ps.ratings.reduce((a,b)=>a+b,0)/ps.ratings.length).toFixed(1);
+  el.textContent = `${avg} / 5 · ${ps.ratings.length} voto${ps.ratings.length>1?'s':''}`;
+}
+
+document.querySelectorAll('#stars .star-btn').forEach(btn => {
+  btn.addEventListener('mouseenter', () => renderStars(parseInt(btn.dataset.v)));
+  btn.addEventListener('mouseleave', () => renderStars(pendingStar));
+  btn.addEventListener('click', () => {
+    const v  = parseInt(btn.dataset.v);
+    pendingStar = v;
+    renderStars(v);
+    const st = getState();
+    st.palettes[current].ratings.push(v);
+    saveState(st);
+    updateRatingAvg(st.palettes[current]);
+    renderNav();
+    showToast('Calificación guardada');
+  });
+});
+
+// ── Vote ──
+function vote(ci, dir) {
+  const st = getState();
+  const sw = st.palettes[current].swatches[ci];
+  if (!sw) return;
+  if (sw.userVote === dir) { sw[dir]--; sw.userVote = null; }
+  else {
+    if (sw.userVote) sw[sw.userVote]--;
+    sw[dir]++;
+    sw.userVote = dir;
+  }
+  saveState(st);
+  renderClientView();
+  renderNav();
+}
+
+// ── Feedback submit ──
+function submitFeedback() {
+  const name  = document.getElementById('fb-name').value.trim();
+  const email = document.getElementById('fb-email').value.trim();
+  const text  = document.getElementById('fb-text').value.trim();
+  if (!text) { showToast('Escribe tu comentario antes de enviar.'); return; }
+
+  const st = getState();
+  st.palettes[current].feedback.push({
+    id:       Date.now(),
+    name:     name || 'Anónimo',
+    email,
+    text,
+    rating:   pendingStar || null,
+    date:     new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'}),
+    timestamp:new Date().toISOString(),
+    reviewed: false
+  });
+  saveState(st);
+  clearFeedbackForm();
+
+  const ok = document.getElementById('save-ok');
+  ok.classList.add('show');
+  setTimeout(() => ok.classList.remove('show'), 2800);
+
+  renderFeedbackList(st.palettes[current]);
+  renderNav();
+  showToast('Comentario enviado. Gracias.');
+}
+
+function clearFeedbackForm() {
+  ['fb-name','fb-email','fb-text'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+// ── Switch palette ──
+function switchPalette(i) {
+  current = i;
+  pendingStar = 0;
+  renderNav();
+  if (adminMode) renderAdminView();
+  else renderClientView();
+  closeMobile();
+}
+
+// ── Admin toggle ──
+function toggleAdmin() {
+  adminMode = !adminMode;
+  document.getElementById('client-view').classList.toggle('visible', !adminMode);
+  document.getElementById('admin-view').classList.toggle('visible', adminMode);
+  const btn = document.getElementById('admin-btn');
+  btn.textContent = adminMode ? 'Vista cliente' : 'Design Review';
+  btn.classList.toggle('on', adminMode);
+  renderNav();
+  if (adminMode) renderAdminView();
+  else renderClientView();
+}
+
+// ── Admin view ──
+function renderAdminView() {
+  const st  = getState();
+  const box = document.getElementById('admin-content');
+  box.innerHTML = '';
+
+  PALETTES.forEach((p, pi) => {
+    const ps        = st.palettes[pi];
+    const totalFb   = ps.feedback.length;
+    const unread    = ps.feedback.filter(f => !f.reviewed).length;
+    const avgR      = ps.ratings.length
+      ? (ps.ratings.reduce((a,b)=>a+b,0)/ps.ratings.length).toFixed(1) : '—';
+    const totalUp   = ps.swatches.reduce((a,s)=>a+s.up, 0);
+    const totalDn   = ps.swatches.reduce((a,s)=>a+s.down, 0);
+
+    const block = document.createElement('div');
+    block.className = 'admin-palette-block';
+    block.innerHTML = `
+      <div class="admin-palette-name">
+        ${p.name}
+        ${ps.updated   ? '<span class="badge badge-green">Actualizado</span>' : ''}
+        ${unread > 0   ? `<span class="badge badge-gold">${unread} nuevo${unread>1?'s':''}</span>` : ''}
+      </div>
+
+      <div class="stats-row">
+        <div><div class="stat-val">${totalFb}</div><div class="stat-label">Comentarios</div></div>
+        <div><div class="stat-val">${avgR}</div><div class="stat-label">Calificación</div></div>
+        <div><div class="stat-val vote-up-num">${totalUp}</div><div class="stat-label">Me gusta</div></div>
+        <div><div class="stat-val vote-dn-num">${totalDn}</div><div class="stat-label">No me gusta</div></div>
+      </div>
+
+      <div class="section-label">Colores — editar hex</div>
+      <div class="admin-swatches">
+        ${ps.colors.map((c, ci) => {
+          const sw = ps.swatches[ci] || {up:0,down:0};
+          return `
+            <div class="admin-swatch">
+              <div class="admin-swatch-color" id="ap${pi}c${ci}" style="background:${c.hex};"></div>
+              <div class="admin-swatch-body">
+                <div class="admin-swatch-name">${c.name}</div>
+                <div class="color-edit-row">
+                  <input type="color" value="${c.hex}" oninput="editColor(${pi},${ci},this.value)"/>
+                  <input type="text" class="hex-input" id="hex${pi}_${ci}" value="${c.hex.toUpperCase()}"
+                    onchange="editHex(${pi},${ci},this.value)"/>
+                </div>
+                <div class="swatch-vote-bar">
+                  <span class="vote-up-num">+${sw.up}</span>
+                  <span style="color:var(--muted-light)">|</span>
+                  <span class="vote-dn-num">-${sw.down}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="palette-actions">
+        <button class="btn-accent" onclick="saveColors(${pi})">Guardar cambios</button>
+        <button class="btn-review" onclick="markReview(${pi})">Marcar para re-revisión</button>
+      </div>
+
+      ${totalFb > 0 ? `
+        <div style="margin-top:24px;">
+          <div class="section-label">Comentarios</div>
+          ${ps.feedback.map((fb, fi) => `
+            <div class="admin-fb-entry">
+              <div class="admin-fb-meta">
+                <span class="admin-fb-author">${escHtml(fb.name)}</span>
+                <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  ${fb.rating ? `<span class="admin-fb-stars">${'★'.repeat(fb.rating)}</span>` : ''}
+                  <span class="admin-fb-date">${fb.date}</span>
+                  <button class="mark-btn${fb.reviewed?' done':''}"
+                    onclick="markRead(${pi},${fi})">${fb.reviewed?'Revisado':'Marcar revisado'}</button>
+                </span>
+              </div>
+              <div class="admin-fb-text">${escHtml(fb.text)}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : `<div class="empty" style="margin-top:16px;">Sin comentarios en esta paleta.</div>`}
+    `;
+    box.appendChild(block);
+  });
+}
+
+// ── Color editing ──
+function editColor(pi, ci, hex) {
+  const el = document.getElementById(`ap${pi}c${ci}`);
+  if (el) el.style.background = hex;
+  const inp = document.getElementById(`hex${pi}_${ci}`);
+  if (inp) inp.value = hex.toUpperCase();
+  const st = getState();
+  st.palettes[pi].colors[ci].hex    = hex;
+  st.palettes[pi].swatches[ci].hex  = hex;
+  saveState(st);
+}
+
+function editHex(pi, ci, val) {
+  let hex = val.trim();
+  if (!hex.startsWith('#')) hex = '#' + hex;
+  if (!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+  const el = document.getElementById(`ap${pi}c${ci}`);
+  if (el) el.style.background = hex;
+  const st = getState();
+  st.palettes[pi].colors[ci].hex    = hex;
+  st.palettes[pi].swatches[ci].hex  = hex;
+  saveState(st);
+}
+
+function saveColors(pi) {
+  const st = getState();
+  st.palettes[pi].updated   = true;
+  st.palettes[pi].updatedAt = new Date().toISOString();
+  saveState(st);
+  renderAdminView();
+  renderNav();
+  showToast(`Cambios guardados — Palette ${pi + 1}`);
+}
+
+function markReview(pi) {
+  const st = getState();
+  st.palettes[pi].updated = false;
+  saveState(st);
+  renderAdminView();
+  showToast('Paleta marcada para re-revisión');
+}
+
+function markRead(pi, fi) {
+  const st = getState();
+  st.palettes[pi].feedback[fi].reviewed = true;
+  saveState(st);
+  renderAdminView();
+  renderNav();
+}
+
+// ── Export ──
+function exportData() {
+  const st   = getState();
+  const blob = new Blob([JSON.stringify(st, null, 2)], { type:'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `todaycoffee-feedback-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Datos exportados');
+}
+
+function clearData() {
+  if (!confirm('¿Borrar todos los datos? Esta acción no se puede deshacer.')) return;
+  localStorage.removeItem(KEY);
+  pendingStar = 0;
+  renderAdminView();
+  renderNav();
+  showToast('Datos eliminados');
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── Utils ──
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ── Mobile ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+});
+document.getElementById('overlay').addEventListener('click', closeMobile);
+function closeMobile() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── Init ──
+renderNav();
+renderClientView();
+</script>
+</body>
+</html>
