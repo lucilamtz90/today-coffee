@@ -244,18 +244,6 @@ body {
   min-height: 14px;
 }
 
-/* ── Palette image ── */
-.palette-img-wrap { margin-bottom: 44px; }
-
-.palette-img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  display: block;
-}
-
 /* ── Section label ── */
 .section-label {
   font-size: 9px;
@@ -353,9 +341,6 @@ body {
 }
 
 .field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
   margin-bottom: 12px;
 }
 
@@ -712,7 +697,6 @@ input[type="color"] {
   .main { margin-left: 0; padding: 80px 24px 48px; max-width: 100%; }
   .palette-header { flex-direction: column; gap: 18px; }
   .overall-rating { align-items: flex-start; }
-  .field-row { grid-template-columns: 1fr; }
   .swatches-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 }
 
@@ -777,10 +761,6 @@ input[type="color"] {
       </div>
     </div>
 
-    <div class="palette-img-wrap">
-      <img class="palette-img" id="p-img" src="" alt="Palette"/>
-    </div>
-
     <div class="section-label" id="swatches-label">Colores</div>
     <div class="swatches-grid" id="swatches-grid"></div>
 
@@ -789,7 +769,6 @@ input[type="color"] {
       <div class="feedback-hint">Dinos qué sensaciones evoca esta paleta para Today Coffee.</div>
       <div class="field-row">
         <input class="field" id="fb-name" type="text" placeholder="Tu nombre"/>
-        <input class="field" id="fb-email" type="email" placeholder="Correo electrónico (opcional)"/>
       </div>
       <textarea class="field" id="fb-text" placeholder="¿Qué colores te llaman la atención? ¿Qué sensación transmite la paleta?"></textarea>
       <div class="submit-row">
@@ -975,10 +954,6 @@ function renderClientView() {
   document.getElementById('p-eyebrow').textContent = `Palette 0${current + 1}`;
   document.getElementById('p-title').textContent   = p.name;
 
-  const img = document.getElementById('p-img');
-  img.src = p.img;
-  img.alt = p.name;
-
   // Stars
   pendingStar = 0;
   renderStars(0);
@@ -1094,16 +1069,14 @@ function vote(ci, dir) {
 
 // ── Feedback submit ──
 function submitFeedback() {
-  const name  = document.getElementById('fb-name').value.trim();
-  const email = document.getElementById('fb-email').value.trim();
-  const text  = document.getElementById('fb-text').value.trim();
+  const name = document.getElementById('fb-name').value.trim();
+  const text = document.getElementById('fb-text').value.trim();
   if (!text) { showToast('Escribe tu comentario antes de enviar.'); return; }
 
   const st = getState();
   st.palettes[current].feedback.push({
     id:       Date.now(),
     name:     name || 'Anónimo',
-    email,
     text,
     rating:   pendingStar || null,
     date:     new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'}),
@@ -1123,7 +1096,7 @@ function submitFeedback() {
 }
 
 function clearFeedbackForm() {
-  ['fb-name','fb-email','fb-text'].forEach(id => {
+  ['fb-name','fb-text'].forEach(id => {
     document.getElementById(id).value = '';
   });
 }
