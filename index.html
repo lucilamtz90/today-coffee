@@ -1098,6 +1098,10 @@ function getState() {
       const i = st.palettes[p.id].swatches.length;
       st.palettes[p.id].swatches.push({ hex: p.colors[i].hex, up: 0, down: 0, userVote: null });
     }
+    // Migrate old buggy data: 'dn' key → 'down'
+    st.palettes[p.id].swatches.forEach(sw => {
+      if (sw.dn !== undefined) { sw.down = (sw.down || 0) + (Number(sw.dn) || 0); delete sw.dn; }
+    });
     // Ensure colors array exists
     if (!st.palettes[p.id].colors || !st.palettes[p.id].colors.length) {
       st.palettes[p.id].colors = p.colors.map(c => ({ name: c.name, hex: c.hex }));
@@ -1241,13 +1245,17 @@ document.querySelectorAll('#stars .star-btn').forEach(btn => {
 
 // ── Vote ──
 function vote(ci, dir) {
-  const st = getState();
-  const sw = st.palettes[current].swatches[ci];
+  const st  = getState();
+  const sw  = st.palettes[current].swatches[ci];
   if (!sw) return;
-  if (sw.userVote === dir) { sw[dir]--; sw.userVote = null; }
-  else {
-    if (sw.userVote) sw[sw.userVote]--;
-    sw[dir]++;
+  // 'dn' maps to the 'down' state key; 'up' maps to 'up'
+  const key = dir === 'dn' ? 'down' : 'up';
+  if (sw.userVote === dir) {
+    sw[key]--;
+    sw.userVote = null;
+  } else {
+    if (sw.userVote) sw[sw.userVote === 'dn' ? 'down' : 'up']--;
+    sw[key]++;
     sw.userVote = dir;
   }
   saveState(st);
@@ -1350,6 +1358,7 @@ function clearFeedbackForm() {
 function switchPalette(i) {
   current = i;
   pendingStar = 0;
+  clearFeedbackForm();
   renderNav();
   if (adminMode) renderAdminView();
   else renderClientView();
