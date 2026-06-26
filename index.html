@@ -745,7 +745,7 @@ input[type="color"] {
 
     <div class="palette-header">
       <div>
-        <div class="palette-eyebrow" id="p-eyebrow">Palette 01</div>
+        <div class="palette-eyebrow" id="p-eyebrow">Paleta de colores</div>
         <div class="palette-title" id="p-title">Palette 1</div>
       </div>
       <div class="overall-rating">
@@ -804,7 +804,7 @@ input[type="color"] {
 <script>
 // ── Palette data ──
 const PALETTES = [
-  { id:0, name:'Palette 1', img:'assets/images/palette1.png',
+  { id:0, name:'Miel y Campo', img:'assets/images/palette1.png',
     colors:[
       {name:'Almond Cream',     hex:'#F0EAD8'},
       {name:'Coastal Sage',     hex:'#99ABA6'},
@@ -813,7 +813,7 @@ const PALETTES = [
       {name:'Olive Grove',      hex:'#6F6C43'}
     ]
   },
-  { id:1, name:'Palette 2', img:'assets/images/palette2.png',
+  { id:1, name:'Arena y Vino', img:'assets/images/palette2.png',
     colors:[
       {name:'Almond Cream', hex:'#F0EAD8'},
       {name:'Rum Raisin',   hex:'#583432'},
@@ -822,7 +822,7 @@ const PALETTES = [
       {name:'Olive Grove',  hex:'#6F6C43'}
     ]
   },
-  { id:2, name:'Palette 3', img:'assets/images/palette3.png',
+  { id:2, name:'Campo y Duraznos', img:'assets/images/palette3.png',
     colors:[
       {name:'Moss',       hex:'#31331F'},
       {name:'Blush',      hex:'#D9BBA0'},
@@ -831,7 +831,7 @@ const PALETTES = [
       {name:'Olive',      hex:'#645D3B'}
     ]
   },
-  { id:3, name:'Palette 4', img:'assets/images/palette4.png',
+  { id:3, name:'Olivos', img:'assets/images/palette4.png',
     colors:[
       {name:'Raw Linen',      hex:'#DCD6BA'},
       {name:'Almond Bloom',   hex:'#F9F8EB'},
@@ -840,7 +840,7 @@ const PALETTES = [
       {name:'Forest Seed',    hex:'#555439'}
     ]
   },
-  { id:4, name:'Palette 5', img:'assets/images/palette5.png',
+  { id:4, name:'Hojas aromáticas', img:'assets/images/palette5.png',
     colors:[
       {name:'First Frost',  hex:'#DFE0DC'},
       {name:'Spring',       hex:'#D1DBBD'},
@@ -849,7 +849,7 @@ const PALETTES = [
       {name:'Serpentine',   hex:'#283106'}
     ]
   },
-  { id:5, name:'Palette 6', img:'assets/images/palette6.png',
+  { id:5, name:'Pastos', img:'assets/images/palette6.png',
     colors:[
       {name:'Alocasia',  hex:'#374526'},
       {name:'Calathea',  hex:'#536940'},
@@ -951,7 +951,7 @@ function renderClientView() {
   const p  = PALETTES[current];
   const ps = st.palettes[current];
 
-  document.getElementById('p-eyebrow').textContent = `Palette 0${current + 1}`;
+  document.getElementById('p-eyebrow').textContent = 'Paleta de colores';
   document.getElementById('p-title').textContent   = p.name;
 
   // Stars
