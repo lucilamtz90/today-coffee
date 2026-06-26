@@ -818,7 +818,7 @@ input[type="color"] {
     <div class="nav-section-label">Paletas</div>
   </nav>
 
-  <div class="sidebar-footer">
+  <div class="sidebar-footer" id="sidebar-footer" style="display:none;">
     <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">Design Review</button>
   </div>
 </aside>
@@ -944,6 +944,27 @@ const PALETTES = [
     ]
   }
 ];
+
+// ── Config ──
+const APPS_SCRIPT_URL = 'PEGA_TU_URL_AQUI';
+
+// ── Session ID (unique per browser session) ──
+const SESSION_ID = sessionStorage.getItem('tc_sid') || (() => {
+  const id = 'S' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 5).toUpperCase();
+  sessionStorage.setItem('tc_sid', id);
+  return id;
+})();
+
+// ── Google Sheets logger ──
+function logToSheets(data) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'PEGA_TU_URL_AQUI') return;
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionId: SESSION_ID, ...data })
+  }).catch(() => {});
+}
 
 // ── State ──
 let current   = 0;
@@ -1160,6 +1181,9 @@ function submitFeedback() {
   if (!text) { showToast('Escribe tu comentario antes de enviar.'); return; }
 
   const st = getState();
+  const ps = st.palettes[current];
+  const p  = PALETTES[current];
+
   st.palettes[current].feedback.push({
     id:       Date.now(),
     name:     name || 'Anónimo',
@@ -1170,6 +1194,20 @@ function submitFeedback() {
     reviewed: false
   });
   saveState(st);
+
+  // Log to Google Sheets
+  const votesUp   = ps.swatches.map((sw,i) => sw.userVote==='up'  ? ps.colors[i].name : null).filter(Boolean).join(', ');
+  const votesDown = ps.swatches.map((sw,i) => sw.userVote==='dn'  ? ps.colors[i].name : null).filter(Boolean).join(', ');
+  logToSheets({
+    palette:   p.name,
+    name:      name || 'Anónimo',
+    comment:   text,
+    rating:    pendingStar || '',
+    votesUp,
+    votesDown,
+    type:      'feedback'
+  });
+
   clearFeedbackForm();
 
   const ok = document.getElementById('save-ok');
@@ -1413,6 +1451,11 @@ function initWelcome() {
 }
 
 // ── Init ──
+// Show Design Review button only when ?review is in the URL
+if (new URLSearchParams(window.location.search).has('review')) {
+  document.getElementById('sidebar-footer').style.display = 'block';
+}
+
 renderNav();
 renderClientView();
 initWelcome();
