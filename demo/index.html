@@ -1080,7 +1080,7 @@ input[type="color"] {
   </nav>
 
   <div class="sidebar-finish" id="sidebar-finish">
-    <button class="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <button class="btn-finish" id="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
     <div class="finish-credit-divider"></div>
     <div class="finish-credit-text">Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖</div>
   </div>
@@ -1444,15 +1444,27 @@ function renderNav() {
 
 // ── Main sections (Colores / Tipografías / Logotipos / Aplicaciones) ──
 const SECTIONS = ['colores', 'tipografias', 'logotipos', 'aplicaciones'];
+let currentSection = 'colores';
 
 function switchSection(name) {
+  currentSection = name;
   SECTIONS.forEach(s => {
     document.getElementById('section-' + s).classList.toggle('active', s === name);
   });
   document.querySelectorAll('#main-nav .tab-btn[data-section]').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.section === name);
   });
+  updateFinishVisibility();
   closeMobile();
+}
+
+// ── Finish button only available inside Colores ──
+function updateFinishVisibility() {
+  const show = currentSection === 'colores';
+  const btn = document.getElementById('btn-finish');
+  if (btn) btn.style.display = show ? '' : 'none';
+  const mobileBtn = document.getElementById('btn-finish-mobile');
+  if (mobileBtn) mobileBtn.style.display = show ? '' : 'none';
 }
 
 // ── Typography tabs ──
@@ -1923,6 +1935,7 @@ if (new URLSearchParams(window.location.search).has('review')) {
 
 renderNav();
 renderClientView();
+updateFinishVisibility();
 initWelcome();
 </script>
 </body>
