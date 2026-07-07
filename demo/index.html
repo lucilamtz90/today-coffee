@@ -334,8 +334,14 @@ body {
   gap: 18px;
 }
 
-.logo-card-img { display: flex; align-items: center; justify-content: center; min-height: 100px; }
-.logo-card-img img { max-width: 100%; height: auto; }
+.logo-card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.logo-card-img img { width: 100%; height: 100%; object-fit: contain; }
 
 .logo-card-label {
   font-size: 11px;
