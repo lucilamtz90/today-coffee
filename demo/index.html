@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Today Coffee — Color Library</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Red+Hat+Display:wght@400;500;700&family=SUSE+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
 :root {
   --sand:        #F5F0E8;
@@ -22,6 +23,9 @@
   --gold:        #C5A55A;
   --font-serif:  'Cormorant Garamond', Georgia, serif;
   --font-sans:   'DM Sans', system-ui, sans-serif;
+  --font-type-primary:   'Fraunces', Georgia, serif;
+  --font-type-secondary: 'Red Hat Display', system-ui, sans-serif;
+  --font-type-tertiary:  'SUSE Mono', 'Courier New', monospace;
   --radius:      16px;
   --radius-sm:   10px;
   --sidebar-w:   256px;
@@ -116,6 +120,13 @@ body {
   border-left-color: var(--accent);
 }
 
+.tab-btn:disabled {
+  color: var(--muted-light);
+  cursor: default;
+}
+
+.tab-btn:disabled:hover { background: none; color: var(--muted-light); }
+
 .tab-dot {
   width: 10px;
   height: 10px;
@@ -183,6 +194,162 @@ body {
 /* ── Page sections ── */
 .view { display: none; }
 .view.visible { display: block; }
+
+.content-section { display: none; }
+.content-section.active { display: block; }
+
+/* ── Horizontal tabs (Colores / Tipografías) ── */
+.h-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+
+.h-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+  transform: translateY(1px);
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+
+.h-tab-btn:hover { color: var(--ink); }
+
+.h-tab-btn.active {
+  color: var(--accent);
+  font-weight: 500;
+  border-bottom-color: var(--accent);
+}
+
+.h-tab-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.12);
+}
+
+.h-tab-count {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--sand);
+  padding: 1px 6px;
+  border-radius: 20px;
+}
+
+.h-tab-new-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Section intro (Tipografías / Logotipos / Aplicaciones) ── */
+.section-intro {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+/* ── Typography showcase ── */
+.type-panel { display: none; }
+.type-panel.active { display: block; }
+
+.type-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.type-card-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.type-sample {
+  color: var(--ink);
+  margin-bottom: 28px;
+  line-height: 1.15;
+}
+
+.type-usage-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+.type-usage-item { display: flex; flex-direction: column; gap: 8px; }
+
+.type-usage-tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+}
+
+.type-usage-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── Logo grid ── */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.logo-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo-card-img { display: flex; align-items: center; justify-content: center; min-height: 100px; }
+.logo-card-img img { max-width: 100%; height: auto; }
+
+.logo-card-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── Prototype embed ── */
+.proto-frame-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+}
+
+.proto-frame-wrap iframe { max-width: 100%; }
 
 /* ── Palette header ── */
 .palette-header {
@@ -908,8 +1075,14 @@ input[type="color"] {
     <div class="brand-sub">Librería de colores</div>
   </div>
 
-  <nav class="sidebar-nav" id="palette-nav">
-    <div class="nav-section-label">Paletas</div>
+  <nav class="sidebar-nav" id="main-nav">
+    <div class="nav-section-label">Secciones</div>
+    <button class="tab-btn active" data-section="colores" onclick="switchSection('colores')">Colores</button>
+    <button class="tab-btn" data-section="tipografias" onclick="switchSection('tipografias')">Tipografías</button>
+    <button class="tab-btn" data-section="logotipos" onclick="switchSection('logotipos')">Logotipos</button>
+    <button class="tab-btn" data-section="aplicaciones" onclick="switchSection('aplicaciones')">Aplicaciones</button>
+    <button class="tab-btn" disabled>Entregables y Links</button>
+    <button class="tab-btn" disabled>Documentación</button>
   </nav>
 
   <div class="sidebar-finish" id="sidebar-finish">
@@ -925,6 +1098,11 @@ input[type="color"] {
 
 <!-- Main -->
 <main class="main">
+
+<!-- SECTION: Colores -->
+<section class="content-section active" id="section-colores">
+
+  <div class="h-tabs" id="palette-tabs"></div>
 
   <!-- CLIENT VIEW -->
   <div class="view visible" id="client-view">
@@ -982,6 +1160,124 @@ input[type="color"] {
     </div>
     <div id="admin-content"></div>
   </div>
+
+</section>
+
+<!-- SECTION: Tipografías -->
+<section class="content-section" id="section-tipografias">
+  <div class="palette-header">
+    <div>
+      <div class="palette-eyebrow">Identidad visual</div>
+      <div class="palette-title">Tipografías</div>
+    </div>
+  </div>
+  <div class="section-intro">3 estilos de fonts que crean flexibilidad en el diseño editorial que complementan la calidez y elegancia del logotipo principal.</div>
+
+  <div class="h-tabs" id="type-tabs">
+    <button class="h-tab-btn active" data-type="primarias" onclick="switchTypeTab('primarias')">Primarias</button>
+    <button class="h-tab-btn" data-type="secundarias" onclick="switchTypeTab('secundarias')">Secundarias</button>
+    <button class="h-tab-btn" data-type="terciarias" onclick="switchTypeTab('terciarias')">Terciarias</button>
+  </div>
+
+  <div class="type-panel active" id="type-panel-primarias">
+    <div class="type-card">
+      <div class="type-card-label">Font principal</div>
+      <div class="type-sample" style="font-family:var(--font-type-primary); font-style:italic; font-weight:400; font-size:56px;">Fraunces</div>
+      <div class="type-usage-row">
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Header</span>
+          <div style="font-family:var(--font-type-primary); font-style:italic; font-weight:400; font-size:44px;">Header</div>
+        </div>
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Sub header</span>
+          <div style="font-family:var(--font-type-primary); font-weight:700; font-size:30px;">Sub header</div>
+        </div>
+      </div>
+      <div class="type-usage-note">Uso: encabezados principales y subtítulos destacados.</div>
+    </div>
+  </div>
+
+  <div class="type-panel" id="type-panel-secundarias">
+    <div class="type-card">
+      <div class="type-card-label">Font complementaria</div>
+      <div class="type-sample" style="font-family:var(--font-type-secondary); font-weight:400; font-size:44px;">Red Hat Display</div>
+      <div class="type-usage-row">
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Subtitle</span>
+          <div style="font-family:var(--font-type-secondary); font-weight:700; letter-spacing:0.03em; text-transform:uppercase; font-size:20px;">Subtitles</div>
+        </div>
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Titles</span>
+          <div style="font-family:var(--font-type-secondary); font-weight:400; font-size:24px;">Titles</div>
+        </div>
+      </div>
+      <div class="type-usage-note">Uso: subtítulos y títulos de sección.</div>
+    </div>
+  </div>
+
+  <div class="type-panel" id="type-panel-terciarias">
+    <div class="type-card">
+      <div class="type-card-label">Font terciaria</div>
+      <div class="type-sample" style="font-family:var(--font-type-tertiary); font-weight:400; font-size:38px;">Suse Mono</div>
+      <div class="type-usage-row">
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Caption 1</span>
+          <div style="font-family:var(--font-type-tertiary); font-weight:400; letter-spacing:0.06em; text-transform:uppercase; font-size:13px;">Captions #1</div>
+        </div>
+        <div class="type-usage-item">
+          <span class="type-usage-tag">Caption 2</span>
+          <div style="font-family:var(--font-type-tertiary); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; font-size:13px;">Captions #2</div>
+        </div>
+      </div>
+      <div class="type-usage-note">Uso: captions, metadatos y detalles técnicos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: Logotipos -->
+<section class="content-section" id="section-logotipos">
+  <div class="palette-header">
+    <div>
+      <div class="palette-eyebrow">Identidad visual</div>
+      <div class="palette-title">Logotipos</div>
+    </div>
+  </div>
+  <div class="section-intro">La identidad consta de 3 variantes y un logotipo compuesto por icono y leyendas de complemento. La flexibilidad es amplia, evocando modernidad y estilo en aplicaciones impresas y digitales.</div>
+
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="logo-card-img"><img src="assets/images/logos/logo-principal.png" alt="Logotipo principal"/></div>
+      <div class="logo-card-label">01. Logotipo principal</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-card-img"><img src="assets/images/logos/logo-secundario.png" alt="Logotipo secundario"/></div>
+      <div class="logo-card-label">02. Logotipo secundario</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-card-img"><img src="assets/images/logos/imagotipo.png" alt="Imagotipo"/></div>
+      <div class="logo-card-label">03. Imagotipo</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-card-img"><img src="assets/images/logos/logo-simple.png" alt="Logotipo simple"/></div>
+      <div class="logo-card-label">04. Logotipo simple</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: Aplicaciones -->
+<section class="content-section" id="section-aplicaciones">
+  <div class="palette-header">
+    <div>
+      <div class="palette-eyebrow">Identidad visual</div>
+      <div class="palette-title">Aplicaciones</div>
+    </div>
+  </div>
+  <div class="section-intro">Prototipo interactivo de la aplicación del logotipo.</div>
+
+  <div class="proto-frame-wrap">
+    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/ek1v44h67g4CFug9DLchaZ/Today-Coffee--Logo-?node-id=116-3003&m=draw&scaling=scale-down&content-scaling=fixed&starting-point-node-id=116%3A3003&show-proto-sidebar=1&page-id=116%3A1935&embed-host=share" allowfullscreen></iframe>
+  </div>
+</section>
 
 </main>
 
@@ -1132,8 +1428,8 @@ function getState() {
 // ── Nav ──
 function renderNav() {
   const st  = getState();
-  const nav = document.getElementById('palette-nav');
-  nav.innerHTML = '<div class="nav-section-label">Paletas</div>';
+  const nav = document.getElementById('palette-tabs');
+  nav.innerHTML = '';
 
   PALETTES.forEach((p, i) => {
     const ps      = st.palettes[i];
@@ -1142,17 +1438,38 @@ function renderNav() {
     const dotHex  = ps.colors[0] ? ps.colors[0].hex : p.colors[0].hex;
 
     const btn = document.createElement('button');
-    btn.className = 'tab-btn' + (i === current && !adminMode ? ' active' : '');
+    btn.className = 'h-tab-btn' + (i === current && !adminMode ? ' active' : '');
     btn.onclick   = () => switchPalette(i);
     btn.innerHTML = `
-      <span class="tab-dot" style="background:${dotHex};"></span>
+      <span class="h-tab-dot" style="background:${dotHex};"></span>
       <span>${p.name}</span>
-      <span class="tab-meta">
-        ${hasNew ? '<span class="tab-new-dot"></span>' : ''}
-        ${totalV > 0 ? `<span class="tab-count">${totalV}</span>` : ''}
-      </span>
+      ${hasNew ? '<span class="h-tab-new-dot"></span>' : ''}
+      ${totalV > 0 ? `<span class="h-tab-count">${totalV}</span>` : ''}
     `;
     nav.appendChild(btn);
+  });
+}
+
+// ── Main sections (Colores / Tipografías / Logotipos / Aplicaciones) ──
+const SECTIONS = ['colores', 'tipografias', 'logotipos', 'aplicaciones'];
+
+function switchSection(name) {
+  SECTIONS.forEach(s => {
+    document.getElementById('section-' + s).classList.toggle('active', s === name);
+  });
+  document.querySelectorAll('#main-nav .tab-btn[data-section]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.section === name);
+  });
+  closeMobile();
+}
+
+// ── Typography tabs ──
+function switchTypeTab(name) {
+  ['primarias', 'secundarias', 'terciarias'].forEach(t => {
+    document.getElementById('type-panel-' + t).classList.toggle('active', t === name);
+  });
+  document.querySelectorAll('#type-tabs .h-tab-btn[data-type]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.type === name);
   });
 }
 
