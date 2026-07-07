@@ -1047,6 +1047,23 @@ input[type="color"] {
   text-decoration: underline;
 }
 
+.ip-link {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  color: var(--muted-light);
+  text-decoration: underline;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ip-link:hover { color: var(--muted); }
+
 /* Mobile finish button (in top bar) */
 .btn-finish-mobile {
   display: none;
@@ -1181,6 +1198,24 @@ input[type="color"] {
   </div>
 </div>
 
+<!-- Intellectual property overlay -->
+<div class="welcome-backdrop" id="ip-modal-backdrop" style="display:none;">
+  <div class="welcome-card">
+    <div class="welcome-eyebrow" data-i18n="ipEyebrow">© 2026</div>
+    <div class="welcome-title" data-i18n="ipTitle">Propiedad intelectual</div>
+    <div class="welcome-body" data-i18n-html="ipBodyHtml">
+      El diseño, código, contenido visual y demás elementos mostrados en este sitio son
+      autoría de Lucila Martínez © 2026. Queda prohibida su reproducción, copia,
+      distribución, modificación, registro o patente — parcial o total — sin autorización
+      previa y por escrito. Para colaboraciones o dudas, escribe a
+      <a href="mailto:lucila.reyes.contacto@gmail.com">lucila.reyes.contacto@gmail.com</a>.
+    </div>
+    <div class="welcome-actions">
+      <button class="btn btn-dark" data-i18n="ipCloseBtn" onclick="closeIpModal()">Entendido</button>
+    </div>
+  </div>
+</div>
+
 <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
@@ -1219,6 +1254,7 @@ input[type="color"] {
   <div class="sidebar-finish" id="sidebar-finish">
     <button class="btn-finish" id="btn-finish" data-i18n="finishBtn" onclick="showSubmitConfirmation()">Terminar evaluación</button>
     <div class="finish-credit-text" data-i18n-html="creditHtml">Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖</div>
+    <button class="ip-link" data-i18n="ipLinkText" onclick="openIpModal()">Propiedad intelectual, 2026</button>
   </div>
 
   <div class="sidebar-footer" id="sidebar-footer" style="display:none;">
@@ -1521,6 +1557,11 @@ const I18N = {
     statusTodo: 'Por hacer',
     finishBtn: 'Terminar evaluación',
     creditHtml: 'Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
+    ipLinkText: 'Propiedad intelectual, 2026',
+    ipEyebrow: '© 2026',
+    ipTitle: 'Propiedad intelectual',
+    ipBodyHtml: 'El diseño, código, contenido visual y demás elementos mostrados en este sitio son autoría de Lucila Martínez © 2026. Queda prohibida su reproducción, copia, distribución, modificación, registro o patente — parcial o total — sin autorización previa y por escrito. Para colaboraciones o dudas, escribe a <a href="mailto:lucila.reyes.contacto@gmail.com">lucila.reyes.contacto@gmail.com</a>.',
+    ipCloseBtn: 'Entendido',
     openMenu: 'Abrir menú',
     welcomeEyebrow: 'Today Coffee · Identidad visual',
     welcomeTitle: 'Elige los colores de tu marca',
@@ -1622,6 +1663,11 @@ const I18N = {
     statusTodo: 'To do',
     finishBtn: 'Finish evaluation',
     creditHtml: 'Designed and built by <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
+    ipLinkText: 'Intellectual property, 2026',
+    ipEyebrow: '© 2026',
+    ipTitle: 'Intellectual property',
+    ipBodyHtml: 'The design, code, visual content, and all other elements shown on this site are the original work of Lucila Martínez © 2026. Reproduction, copying, distribution, modification, registration, or patenting — in whole or in part — without prior written authorization is strictly prohibited. For collaborations or questions, email <a href="mailto:lucila.reyes.contacto@gmail.com">lucila.reyes.contacto@gmail.com</a>.',
+    ipCloseBtn: 'Got it',
     openMenu: 'Open menu',
     welcomeEyebrow: 'Today Coffee · Visual identity',
     welcomeTitle: 'Choose your brand colors',
@@ -2089,6 +2135,19 @@ function showSubmitConfirmation() {
 
 function cancelSubmit() {
   const el = document.getElementById('confirm-backdrop');
+  el.classList.remove('show');
+  setTimeout(() => el.style.display = 'none', 280);
+}
+
+// ── Intellectual property overlay ──
+function openIpModal() {
+  const el = document.getElementById('ip-modal-backdrop');
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('show'));
+}
+
+function closeIpModal() {
+  const el = document.getElementById('ip-modal-backdrop');
   el.classList.remove('show');
   setTimeout(() => el.style.display = 'none', 280);
 }
