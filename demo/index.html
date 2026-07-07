@@ -48,6 +48,18 @@ body {
   color: var(--ink);
   min-height: 100vh;
   display: flex;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 /* ── Sidebar ── */
@@ -153,38 +165,6 @@ body {
 
 .nav-status-tag.status-progress { background: #FCEEDC; color: #B0611E; }
 .nav-status-tag.status-todo     { background: #EBEDF0; color: #667085; }
-
-.tab-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 1.5px solid rgba(0,0,0,0.12);
-}
-
-.tab-meta {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tab-count {
-  font-size: 10px;
-  color: var(--muted);
-  background: var(--sand);
-  padding: 2px 7px;
-  border-radius: 20px;
-  line-height: 1.4;
-}
-
-.tab-new-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  flex-shrink: 0;
-}
 
 .sidebar-footer {
   padding: 16px 20px 24px;
@@ -1562,6 +1542,7 @@ const I18N = {
     ipTitle: 'Propiedad intelectual',
     ipBodyHtml: 'El diseño, código, contenido visual y demás elementos mostrados en este sitio son autoría de Lucila Martínez © 2026. Queda prohibida su reproducción, copia, distribución, modificación, registro o patente — parcial o total — sin autorización previa y por escrito. Para colaboraciones o dudas, escribe a <a href="mailto:lucila.reyes.contacto@gmail.com">lucila.reyes.contacto@gmail.com</a>.',
     ipCloseBtn: 'Entendido',
+    protectionToast: 'Este contenido está protegido.',
     openMenu: 'Abrir menú',
     welcomeEyebrow: 'Today Coffee · Identidad visual',
     welcomeTitle: 'Elige los colores de tu marca',
@@ -1668,6 +1649,7 @@ const I18N = {
     ipTitle: 'Intellectual property',
     ipBodyHtml: 'The design, code, visual content, and all other elements shown on this site are the original work of Lucila Martínez © 2026. Reproduction, copying, distribution, modification, registration, or patenting — in whole or in part — without prior written authorization is strictly prohibited. For collaborations or questions, email <a href="mailto:lucila.reyes.contacto@gmail.com">lucila.reyes.contacto@gmail.com</a>.',
     ipCloseBtn: 'Got it',
+    protectionToast: 'This content is protected.',
     openMenu: 'Open menu',
     welcomeEyebrow: 'Today Coffee · Visual identity',
     welcomeTitle: 'Choose your brand colors',
@@ -1847,7 +1829,6 @@ function logToSheets(data) {
 // ── State ──
 let current   = 0;
 let adminMode = false;
-let hoverStar = 0;
 let pendingStar = 0;
 
 const KEY = 'todaycoffee_colorlib_demo_v1';
@@ -2155,7 +2136,6 @@ function closeIpModal() {
 // ── Full evaluation submit → Google Sheets ──
 function submitFullEvaluation() {
   const st  = getState();
-  const now = new Date();
 
   // Build one entry per palette — only include palettes the user actually interacted with
   const palettes = PALETTES.map((p, i) => {
@@ -2434,6 +2414,31 @@ function initWelcome() {
   el.style.display = 'flex';
   requestAnimationFrame(() => el.classList.add('show'));
 }
+
+// ── Content protection (deters casual copying/saving — not a security boundary) ──
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea')) return;
+  e.preventDefault();
+  showToast(t('protectionToast'));
+});
+
+document.addEventListener('dragstart', e => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
+});
+
+document.addEventListener('keydown', e => {
+  const key = e.key.toLowerCase();
+  const mod = e.ctrlKey || e.metaKey;
+  const blocked =
+    (mod && key === 's') ||
+    (mod && key === 'u') ||
+    (mod && e.shiftKey && (key === 'i' || key === 'j' || key === 'c')) ||
+    key === 'f12';
+  if (blocked) {
+    e.preventDefault();
+    showToast(t('protectionToast'));
+  }
+});
 
 // ── Init ──
 // Show Design Review button only when ?review is in the URL
