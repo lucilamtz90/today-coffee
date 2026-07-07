@@ -232,14 +232,6 @@ body {
   border-bottom-color: var(--accent);
 }
 
-.h-tab-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 1.5px solid rgba(0,0,0,0.12);
-}
-
 .h-tab-count {
   font-size: 10px;
   color: var(--muted);
@@ -1008,6 +1000,7 @@ input[type="color"] {
   .palette-header { flex-direction: column; gap: 18px; }
   .overall-rating { align-items: flex-start; }
   .swatches-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .h-tabs { max-height: 108px; overflow-y: auto; overflow-x: hidden; flex-wrap: wrap; }
 }
 
 @media (max-width: 480px) {
@@ -1072,7 +1065,7 @@ input[type="color"] {
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-name">Branding Hub</div>
-    <div class="brand-sub">Librería de colores</div>
+    <div class="brand-sub">Branding Kit</div>
   </div>
 
   <nav class="sidebar-nav" id="main-nav">
@@ -1435,13 +1428,11 @@ function renderNav() {
     const ps      = st.palettes[i];
     const totalV  = ps.swatches.reduce((a, s) => a + s.up + s.down, 0);
     const hasNew  = ps.feedback.some(f => !f.reviewed);
-    const dotHex  = ps.colors[0] ? ps.colors[0].hex : p.colors[0].hex;
 
     const btn = document.createElement('button');
     btn.className = 'h-tab-btn' + (i === current && !adminMode ? ' active' : '');
     btn.onclick   = () => switchPalette(i);
     btn.innerHTML = `
-      <span class="h-tab-dot" style="background:${dotHex};"></span>
       <span>${p.name}</span>
       ${hasNew ? '<span class="h-tab-new-dot"></span>' : ''}
       ${totalV > 0 ? `<span class="h-tab-count">${totalV}</span>` : ''}
