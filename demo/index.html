@@ -1135,7 +1135,7 @@ input[type="color"] {
 <div class="mobile-bar">
   <span class="mobile-brand">Branding Hub</span>
   <div class="mobile-bar-right">
-    <button class="btn-finish-mobile" id="btn-finish-mobile" data-i18n="finishBtn" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <button class="btn-finish-mobile" id="btn-finish-mobile" onclick="onFinishClick()">Terminar evaluación</button>
     <button class="hamburger" id="hamburger" data-i18n-aria="openMenu" aria-label="Abrir menú">
       <span></span><span></span><span></span>
     </button>
@@ -1232,7 +1232,7 @@ input[type="color"] {
   </nav>
 
   <div class="sidebar-finish" id="sidebar-finish">
-    <button class="btn-finish" id="btn-finish" data-i18n="finishBtn" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <button class="btn-finish" id="btn-finish" onclick="onFinishClick()">Terminar evaluación</button>
     <div class="finish-credit-text" data-i18n-html="creditHtml">Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖</div>
     <button class="ip-link" data-i18n="ipLinkText" onclick="openIpModal()">Propiedad intelectual, 2026</button>
   </div>
@@ -1535,7 +1535,8 @@ const I18N = {
     navDocumentacion: 'Documentación',
     statusInProgress: 'En progreso',
     statusTodo: 'Por hacer',
-    finishBtn: 'Terminar evaluación',
+    finishBtn: 'Enviar evaluación',
+    evaluateAgain: 'Evaluar nuevamente',
     creditHtml: 'Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
     ipLinkText: 'Propiedad intelectual, 2026',
     ipEyebrow: '© 2026',
@@ -1546,7 +1547,7 @@ const I18N = {
     openMenu: 'Abrir menú',
     welcomeEyebrow: 'Today Coffee · Identidad visual',
     welcomeTitle: 'Elige los colores de tu marca',
-    welcomeBodyHtml: 'Hemos preparado seis paletas de color pensadas en tu marca, su estilo y visión. Explora cada una con calma, vota los colores que más te representan y deja tus comentarios. Cuando termines, haz clic en <strong>Terminar evaluación</strong> en el menú lateral para guardar y enviar tus respuestas.',
+    welcomeBodyHtml: 'Hemos preparado seis paletas de color pensadas en tu marca, su estilo y visión. Explora cada una con calma, vota los colores que más te representan y deja tus comentarios. Cuando termines, haz clic en <strong>Enviar evaluación</strong> en el menú lateral para guardar y enviar tus respuestas.',
     startBtn: 'Empezar',
     confirmEyebrow: 'Today Coffee · Evaluación',
     confirmTitle: '¿Listo para enviar?',
@@ -1590,7 +1591,7 @@ const I18N = {
     ratingSaved: 'Calificación guardada',
     writeCommentFirst: 'Escribe tu comentario antes de enviar.',
     anonymous: 'Anónimo',
-    commentSavedToast: 'Comentario guardado. Recuerda dar clic en Terminar evaluación para enviar.',
+    commentSavedToast: 'Comentario guardado. Recuerda dar clic en Enviar evaluación cuando termines.',
     evaluationSent: 'Evaluación enviada. ¡Muchas gracias!',
     clientView: 'Vista cliente',
     comments: 'Comentarios',
@@ -1642,7 +1643,8 @@ const I18N = {
     navDocumentacion: 'Documentation',
     statusInProgress: 'In progress',
     statusTodo: 'To do',
-    finishBtn: 'Finish evaluation',
+    finishBtn: 'Submit evaluation',
+    evaluateAgain: 'Evaluate again',
     creditHtml: 'Designed and built by <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
     ipLinkText: 'Intellectual property, 2026',
     ipEyebrow: '© 2026',
@@ -1653,7 +1655,7 @@ const I18N = {
     openMenu: 'Open menu',
     welcomeEyebrow: 'Today Coffee · Visual identity',
     welcomeTitle: 'Choose your brand colors',
-    welcomeBodyHtml: 'We\'ve prepared six color palettes designed for your brand, its style and vision. Take your time exploring each one, vote for the colors that represent you best, and leave your comments. When you\'re done, click <strong>Finish evaluation</strong> in the side menu to save and submit your responses.',
+    welcomeBodyHtml: 'We\'ve prepared six color palettes designed for your brand, its style and vision. Take your time exploring each one, vote for the colors that represent you best, and leave your comments. When you\'re done, click <strong>Submit evaluation</strong> in the side menu to save and submit your responses.',
     startBtn: 'Start',
     confirmEyebrow: 'Today Coffee · Evaluation',
     confirmTitle: 'Ready to submit?',
@@ -1697,7 +1699,7 @@ const I18N = {
     ratingSaved: 'Rating saved',
     writeCommentFirst: 'Write your comment before submitting.',
     anonymous: 'Anonymous',
-    commentSavedToast: 'Comment saved. Remember to click Finish evaluation to submit.',
+    commentSavedToast: 'Comment saved. Remember to click Submit evaluation when you\'re done.',
     evaluationSent: 'Evaluation submitted. Thank you so much!',
     clientView: 'Client view',
     comments: 'Comments',
@@ -1937,6 +1939,24 @@ function updateFinishVisibility() {
   if (mobileBtn) mobileBtn.style.display = show ? '' : 'none';
 }
 
+// ── Finish button label toggles between "Submit" and "Evaluate again" ──
+function isSubmitted() {
+  return sessionStorage.getItem('tc_submitted') === '1';
+}
+
+function updateFinishButtonLabel() {
+  const label = isSubmitted() ? t('evaluateAgain') : t('finishBtn');
+  const btn = document.getElementById('btn-finish');
+  if (btn) btn.textContent = label;
+  const mobileBtn = document.getElementById('btn-finish-mobile');
+  if (mobileBtn) mobileBtn.textContent = label;
+}
+
+function onFinishClick() {
+  if (isSubmitted()) resetEvaluation();
+  else showSubmitConfirmation();
+}
+
 // ── Welcome page accordion ──
 function toggleAccordion(btn) {
   btn.parentElement.classList.toggle('open');
@@ -2162,17 +2182,20 @@ function submitFullEvaluation() {
 
   cancelSubmit();
   showToast(t('evaluationSent'));
-  setTimeout(resetEvaluation, 1800);
+  sessionStorage.setItem('tc_submitted', '1');
+  updateFinishButtonLabel();
 }
 
-// ── Reset to fresh state ──
+// ── Reset to fresh state (triggered by "Evaluate again") ──
 function resetEvaluation() {
   localStorage.removeItem(KEY);
   sessionStorage.removeItem('tc_welcomed');
+  sessionStorage.removeItem('tc_submitted');
   current     = 0;
   pendingStar = 0;
   renderNav();
   renderClientView();
+  updateFinishButtonLabel();
   initWelcome();
 }
 
@@ -2450,6 +2473,7 @@ applyStaticI18n();
 renderNav();
 renderClientView();
 updateFinishVisibility();
+updateFinishButtonLabel();
 </script>
 </body>
 </html>
