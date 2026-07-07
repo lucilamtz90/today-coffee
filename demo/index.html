@@ -1023,8 +1023,8 @@ input[type="color"] {
 <div class="mobile-bar">
   <span class="mobile-brand">Branding Hub</span>
   <div class="mobile-bar-right">
-    <button class="btn-finish-mobile" id="btn-finish-mobile" onclick="showSubmitConfirmation()">Terminar evaluación</button>
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+    <button class="btn-finish-mobile" id="btn-finish-mobile" data-i18n="finishBtn" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <button class="hamburger" id="hamburger" data-i18n-aria="openMenu" aria-label="Abrir menú">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1035,16 +1035,16 @@ input[type="color"] {
 <!-- Welcome overlay -->
 <div class="welcome-backdrop" id="welcome-backdrop" style="display:none;">
   <div class="welcome-card">
-    <div class="welcome-eyebrow">Today Coffee · Identidad visual</div>
-    <div class="welcome-title">Elige los colores de tu marca</div>
-    <div class="welcome-body">
+    <div class="welcome-eyebrow" data-i18n="welcomeEyebrow">Today Coffee · Identidad visual</div>
+    <div class="welcome-title" data-i18n="welcomeTitle">Elige los colores de tu marca</div>
+    <div class="welcome-body" data-i18n-html="welcomeBodyHtml">
       Hemos preparado seis paletas de color pensadas en tu marca, su estilo y visión.
       Explora cada una con calma, vota los colores que más te representan y deja tus
       comentarios. Cuando termines, haz clic en <strong>Terminar evaluación</strong> en el
       menú lateral para guardar y enviar tus respuestas.
     </div>
     <div class="welcome-actions">
-      <button class="btn btn-dark" onclick="startEvaluation()">Empezar</button>
+      <button class="btn btn-dark" data-i18n="startBtn" onclick="startEvaluation()">Empezar</button>
     </div>
   </div>
 </div>
@@ -1052,16 +1052,16 @@ input[type="color"] {
 <!-- Confirmation overlay -->
 <div class="welcome-backdrop" id="confirm-backdrop" style="display:none;">
   <div class="welcome-card">
-    <div class="welcome-eyebrow">Today Coffee · Evaluación</div>
-    <div class="welcome-title">¿Listo para enviar?</div>
-    <div class="welcome-body">
+    <div class="welcome-eyebrow" data-i18n="confirmEyebrow">Today Coffee · Evaluación</div>
+    <div class="welcome-title" data-i18n="confirmTitle">¿Listo para enviar?</div>
+    <div class="welcome-body" data-i18n="confirmBody">
       Estás a punto de enviar tu evaluación de las paletas de colores. Tus votos,
       calificaciones y comentarios quedarán registrados. Puedes enviar cuantas veces
       quieras — cada envío se guarda por separado.
     </div>
     <div class="welcome-actions">
-      <button class="btn btn-outline" onclick="cancelSubmit()">Seguir evaluando</button>
-      <button class="btn btn-dark" onclick="submitFullEvaluation()">Enviar mis respuestas</button>
+      <button class="btn btn-outline" data-i18n="keepEvaluating" onclick="cancelSubmit()">Seguir evaluando</button>
+      <button class="btn btn-dark" data-i18n="sendResponses" onclick="submitFullEvaluation()">Enviar mis respuestas</button>
     </div>
   </div>
 </div>
@@ -1074,22 +1074,22 @@ input[type="color"] {
   </div>
 
   <nav class="sidebar-nav" id="main-nav">
-    <div class="nav-section-label">Secciones</div>
-    <button class="tab-btn active" data-section="colores" onclick="switchSection('colores')">Colores</button>
-    <button class="tab-btn" data-section="tipografias" onclick="switchSection('tipografias')">Tipografías</button>
-    <button class="tab-btn" data-section="logotipos" onclick="switchSection('logotipos')">Logotipos</button>
-    <button class="tab-btn" data-section="aplicaciones" onclick="switchSection('aplicaciones')">Aplicaciones</button>
-    <button class="tab-btn" disabled>Entregables y Links</button>
-    <button class="tab-btn" disabled>Documentación</button>
+    <div class="nav-section-label" data-i18n="sections">Secciones</div>
+    <button class="tab-btn active" data-section="colores" data-i18n="navColores" onclick="switchSection('colores')">Colores</button>
+    <button class="tab-btn" data-section="tipografias" data-i18n="navTipografias" onclick="switchSection('tipografias')">Tipografías</button>
+    <button class="tab-btn" data-section="logotipos" data-i18n="navLogotipos" onclick="switchSection('logotipos')">Logotipos</button>
+    <button class="tab-btn" data-section="aplicaciones" data-i18n="navAplicaciones" onclick="switchSection('aplicaciones')">Aplicaciones</button>
+    <button class="tab-btn" data-i18n="navEntregables" disabled>Entregables y Links</button>
+    <button class="tab-btn" data-i18n="navDocumentacion" disabled>Documentación</button>
   </nav>
 
   <div class="sidebar-finish" id="sidebar-finish">
-    <button class="btn-finish" id="btn-finish" onclick="showSubmitConfirmation()">Terminar evaluación</button>
-    <div class="finish-credit-text">Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖</div>
+    <button class="btn-finish" id="btn-finish" data-i18n="finishBtn" onclick="showSubmitConfirmation()">Terminar evaluación</button>
+    <div class="finish-credit-text" data-i18n-html="creditHtml">Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖</div>
   </div>
 
   <div class="sidebar-footer" id="sidebar-footer" style="display:none;">
-    <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">Design Review</button>
+    <button class="admin-btn" id="admin-btn" data-i18n="designReview" onclick="toggleAdmin()">Design Review</button>
   </div>
 </aside>
 
@@ -1110,7 +1110,7 @@ input[type="color"] {
         <div class="palette-title" id="p-title">Palette 1</div>
       </div>
       <div class="overall-rating">
-        <div class="rating-label">Evalúa la paleta</div>
+        <div class="rating-label" data-i18n="rateLabel">Evalúa la paleta</div>
         <div class="stars" id="stars">
           <button class="star-btn" data-v="1">&#9733;</button>
           <button class="star-btn" data-v="2">&#9733;</button>
@@ -1122,20 +1122,20 @@ input[type="color"] {
       </div>
     </div>
 
-    <div class="section-label" id="swatches-label">Colores</div>
+    <div class="section-label" id="swatches-label" data-i18n="colorsLabel">Colores</div>
     <div class="swatches-grid" id="swatches-grid"></div>
 
     <div class="feedback-box">
-      <div class="feedback-title">Comparte tu opinión</div>
-      <div class="feedback-hint">Háznos saber qué te gusta, no te gusta o qué colores te agradan más para tu marca.</div>
+      <div class="feedback-title" data-i18n="shareOpinion">Comparte tu opinión</div>
+      <div class="feedback-hint" data-i18n="feedbackHint">Háznos saber qué te gusta, no te gusta o qué colores te agradan más para tu marca.</div>
       <div class="field-row">
-        <input class="field" id="fb-name" type="text" placeholder="Tu nombre"/>
+        <input class="field" id="fb-name" type="text" data-i18n-placeholder="yourName" placeholder="Tu nombre"/>
       </div>
-      <textarea class="field" id="fb-text" placeholder="¿Qué colores te llaman la atención? ¿Qué sensación transmite la paleta?"></textarea>
+      <textarea class="field" id="fb-text" data-i18n-placeholder="feedbackPlaceholder" placeholder="¿Qué colores te llaman la atención? ¿Qué sensación transmite la paleta?"></textarea>
       <div class="submit-row">
-        <span class="save-ok" id="save-ok">Comentario guardado.</span>
-        <button class="btn btn-outline" onclick="clearFeedbackForm()">Limpiar</button>
-        <button class="btn btn-dark" onclick="submitFeedback()">Enviar comentario</button>
+        <span class="save-ok" id="save-ok" data-i18n="commentSaved">Comentario guardado.</span>
+        <button class="btn btn-outline" data-i18n="clear" onclick="clearFeedbackForm()">Limpiar</button>
+        <button class="btn btn-dark" data-i18n="submitComment" onclick="submitFeedback()">Enviar comentario</button>
       </div>
     </div>
 
@@ -1147,12 +1147,12 @@ input[type="color"] {
   <div class="view" id="admin-view">
     <div class="admin-header">
       <div>
-        <div class="palette-eyebrow">Design Review</div>
-        <div class="admin-title">Feedback del cliente</div>
+        <div class="palette-eyebrow" data-i18n="designReview">Design Review</div>
+        <div class="admin-title" data-i18n="clientFeedback">Feedback del cliente</div>
       </div>
       <div class="admin-actions">
-        <button class="btn-sm" onclick="exportData()">Exportar JSON</button>
-        <button class="btn-sm danger" onclick="clearData()">Limpiar datos</button>
+        <button class="btn-sm" data-i18n="exportJson" onclick="exportData()">Exportar JSON</button>
+        <button class="btn-sm danger" data-i18n="clearDataBtn" onclick="clearData()">Limpiar datos</button>
       </div>
     </div>
     <div id="admin-content"></div>
@@ -1164,21 +1164,21 @@ input[type="color"] {
 <section class="content-section" id="section-tipografias">
   <div class="palette-header">
     <div>
-      <div class="palette-eyebrow">Identidad visual</div>
-      <div class="palette-title">Tipografías</div>
+      <div class="palette-eyebrow" data-i18n="identidadVisual">Identidad visual</div>
+      <div class="palette-title" data-i18n="tipografiasTitle">Tipografías</div>
     </div>
   </div>
-  <div class="section-intro">3 estilos de fonts que crean flexibilidad en el diseño editorial que complementan la calidez y elegancia del logotipo principal.</div>
+  <div class="section-intro" data-i18n="tipografiasIntro">3 estilos de fonts que crean flexibilidad en el diseño editorial que complementan la calidez y elegancia del logotipo principal.</div>
 
   <div class="h-tabs" id="type-tabs">
-    <button class="h-tab-btn active" data-type="primarias" onclick="switchTypeTab('primarias')">Primarias</button>
-    <button class="h-tab-btn" data-type="secundarias" onclick="switchTypeTab('secundarias')">Secundarias</button>
-    <button class="h-tab-btn" data-type="terciarias" onclick="switchTypeTab('terciarias')">Terciarias</button>
+    <button class="h-tab-btn active" data-type="primarias" data-i18n="tabPrimarias" onclick="switchTypeTab('primarias')">Primarias</button>
+    <button class="h-tab-btn" data-type="secundarias" data-i18n="tabSecundarias" onclick="switchTypeTab('secundarias')">Secundarias</button>
+    <button class="h-tab-btn" data-type="terciarias" data-i18n="tabTerciarias" onclick="switchTypeTab('terciarias')">Terciarias</button>
   </div>
 
   <div class="type-panel active" id="type-panel-primarias">
     <div class="type-card">
-      <div class="type-card-label">Font principal</div>
+      <div class="type-card-label" data-i18n="fontPrincipal">Font principal</div>
       <div class="type-sample" style="font-family:var(--font-type-primary); font-style:italic; font-weight:400; font-size:56px;">Fraunces</div>
       <div class="type-usage-row">
         <div class="type-usage-item">
@@ -1190,13 +1190,13 @@ input[type="color"] {
           <div style="font-family:var(--font-type-primary); font-weight:700; font-size:30px;">Sub header</div>
         </div>
       </div>
-      <div class="type-usage-note">Uso: encabezados principales y subtítulos destacados.</div>
+      <div class="type-usage-note" data-i18n="usoPrimarias">Uso: encabezados principales y subtítulos destacados.</div>
     </div>
   </div>
 
   <div class="type-panel" id="type-panel-secundarias">
     <div class="type-card">
-      <div class="type-card-label">Font complementaria</div>
+      <div class="type-card-label" data-i18n="fontComplementaria">Font complementaria</div>
       <div class="type-sample" style="font-family:var(--font-type-secondary); font-weight:400; font-size:44px;">Red Hat Display</div>
       <div class="type-usage-row">
         <div class="type-usage-item">
@@ -1208,13 +1208,13 @@ input[type="color"] {
           <div style="font-family:var(--font-type-secondary); font-weight:400; font-size:24px;">Titles</div>
         </div>
       </div>
-      <div class="type-usage-note">Uso: subtítulos y títulos de sección.</div>
+      <div class="type-usage-note" data-i18n="usoSecundarias">Uso: subtítulos y títulos de sección.</div>
     </div>
   </div>
 
   <div class="type-panel" id="type-panel-terciarias">
     <div class="type-card">
-      <div class="type-card-label">Font terciaria</div>
+      <div class="type-card-label" data-i18n="fontTerciaria">Font terciaria</div>
       <div class="type-sample" style="font-family:var(--font-type-tertiary); font-weight:400; font-size:38px;">Suse Mono</div>
       <div class="type-usage-row">
         <div class="type-usage-item">
@@ -1226,7 +1226,7 @@ input[type="color"] {
           <div style="font-family:var(--font-type-tertiary); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; font-size:13px;">Captions #2</div>
         </div>
       </div>
-      <div class="type-usage-note">Uso: captions, metadatos y detalles técnicos.</div>
+      <div class="type-usage-note" data-i18n="usoTerciarias">Uso: captions, metadatos y detalles técnicos.</div>
     </div>
   </div>
 </section>
@@ -1235,28 +1235,28 @@ input[type="color"] {
 <section class="content-section" id="section-logotipos">
   <div class="palette-header">
     <div>
-      <div class="palette-eyebrow">Identidad visual</div>
-      <div class="palette-title">Logotipos</div>
+      <div class="palette-eyebrow" data-i18n="identidadVisual">Identidad visual</div>
+      <div class="palette-title" data-i18n="logotiposTitle">Logotipos</div>
     </div>
   </div>
-  <div class="section-intro">La identidad consta de 3 variantes y un logotipo compuesto por icono y leyendas de complemento. La flexibilidad es amplia, evocando modernidad y estilo en aplicaciones impresas y digitales.</div>
+  <div class="section-intro" data-i18n="logotiposIntro">La identidad consta de 3 variantes y un logotipo compuesto por icono y leyendas de complemento. La flexibilidad es amplia, evocando modernidad y estilo en aplicaciones impresas y digitales.</div>
 
   <div class="logo-grid">
     <div class="logo-card">
-      <div class="logo-card-img"><img src="assets/images/logos/logo-principal.png" alt="Logotipo principal"/></div>
-      <div class="logo-card-label">01. Logotipo principal</div>
+      <div class="logo-card-img"><img src="assets/images/logos/logo-principal.png" data-i18n-alt="logoPrincipal" alt="Logotipo principal"/></div>
+      <div class="logo-card-label" data-i18n="logoPrincipal">01. Logotipo principal</div>
     </div>
     <div class="logo-card">
-      <div class="logo-card-img"><img src="assets/images/logos/logo-secundario.png" alt="Logotipo secundario"/></div>
-      <div class="logo-card-label">02. Logotipo secundario</div>
+      <div class="logo-card-img"><img src="assets/images/logos/logo-secundario.png" data-i18n-alt="logoSecundario" alt="Logotipo secundario"/></div>
+      <div class="logo-card-label" data-i18n="logoSecundario">02. Logotipo secundario</div>
     </div>
     <div class="logo-card">
-      <div class="logo-card-img"><img src="assets/images/logos/imagotipo.png" alt="Imagotipo"/></div>
-      <div class="logo-card-label">03. Imagotipo</div>
+      <div class="logo-card-img"><img src="assets/images/logos/imagotipo.png" data-i18n-alt="imagotipo" alt="Imagotipo"/></div>
+      <div class="logo-card-label" data-i18n="imagotipo">03. Imagotipo</div>
     </div>
     <div class="logo-card">
-      <div class="logo-card-img"><img src="assets/images/logos/logo-simple.png" alt="Logotipo simple"/></div>
-      <div class="logo-card-label">04. Logotipo simple</div>
+      <div class="logo-card-img"><img src="assets/images/logos/logo-simple.png" data-i18n-alt="logoSimple" alt="Logotipo simple"/></div>
+      <div class="logo-card-label" data-i18n="logoSimple">04. Logotipo simple</div>
     </div>
   </div>
 </section>
@@ -1265,11 +1265,11 @@ input[type="color"] {
 <section class="content-section" id="section-aplicaciones">
   <div class="palette-header">
     <div>
-      <div class="palette-eyebrow">Identidad visual</div>
-      <div class="palette-title">Aplicaciones</div>
+      <div class="palette-eyebrow" data-i18n="identidadVisual">Identidad visual</div>
+      <div class="palette-title" data-i18n="aplicacionesTitle">Aplicaciones</div>
     </div>
   </div>
-  <div class="section-intro">Prototipo interactivo de la aplicación del logotipo.</div>
+  <div class="section-intro" data-i18n="aplicacionesIntro">Prototipo interactivo de la aplicación del logotipo.</div>
 
   <div class="proto-frame-wrap">
     <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/ek1v44h67g4CFug9DLchaZ/Today-Coffee--Logo-?node-id=116-3003&m=draw&scaling=scale-down&content-scaling=fixed&starting-point-node-id=116%3A3003&show-proto-sidebar=1&page-id=116%3A1935&embed-host=share" allowfullscreen></iframe>
@@ -1281,6 +1281,202 @@ input[type="color"] {
 <div class="toast" id="toast"></div>
 
 <script>
+// ── Language detection (ES for Spanish devices, EN for everything else) ──
+const LANG = (navigator.language || navigator.userLanguage || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+const DATE_LOCALE = LANG === 'es' ? 'es-MX' : 'en-US';
+document.documentElement.lang = LANG;
+
+const I18N = {
+  es: {
+    sections: 'Secciones',
+    navColores: 'Colores',
+    navTipografias: 'Tipografías',
+    navLogotipos: 'Logotipos',
+    navAplicaciones: 'Aplicaciones',
+    navEntregables: 'Entregables y Links',
+    navDocumentacion: 'Documentación',
+    finishBtn: 'Terminar evaluación',
+    creditHtml: 'Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
+    openMenu: 'Abrir menú',
+    welcomeEyebrow: 'Today Coffee · Identidad visual',
+    welcomeTitle: 'Elige los colores de tu marca',
+    welcomeBodyHtml: 'Hemos preparado seis paletas de color pensadas en tu marca, su estilo y visión. Explora cada una con calma, vota los colores que más te representan y deja tus comentarios. Cuando termines, haz clic en <strong>Terminar evaluación</strong> en el menú lateral para guardar y enviar tus respuestas.',
+    startBtn: 'Empezar',
+    confirmEyebrow: 'Today Coffee · Evaluación',
+    confirmTitle: '¿Listo para enviar?',
+    confirmBody: 'Estás a punto de enviar tu evaluación de las paletas de colores. Tus votos, calificaciones y comentarios quedarán registrados. Puedes enviar cuantas veces quieras — cada envío se guarda por separado.',
+    keepEvaluating: 'Seguir evaluando',
+    sendResponses: 'Enviar mis respuestas',
+    paletteEyebrow: 'Paleta de colores',
+    rateLabel: 'Evalúa la paleta',
+    colorsLabel: 'Colores',
+    shareOpinion: 'Comparte tu opinión',
+    feedbackHint: 'Háznos saber qué te gusta, no te gusta o qué colores te agradan más para tu marca.',
+    yourName: 'Tu nombre',
+    feedbackPlaceholder: '¿Qué colores te llaman la atención? ¿Qué sensación transmite la paleta?',
+    commentSaved: 'Comentario guardado.',
+    clear: 'Limpiar',
+    submitComment: 'Enviar comentario',
+    designReview: 'Design Review',
+    clientFeedback: 'Feedback del cliente',
+    exportJson: 'Exportar JSON',
+    clearDataBtn: 'Limpiar datos',
+    identidadVisual: 'Identidad visual',
+    tipografiasTitle: 'Tipografías',
+    tipografiasIntro: '3 estilos de fonts que crean flexibilidad en el diseño editorial que complementan la calidez y elegancia del logotipo principal.',
+    tabPrimarias: 'Primarias',
+    tabSecundarias: 'Secundarias',
+    tabTerciarias: 'Terciarias',
+    fontPrincipal: 'Font principal',
+    fontComplementaria: 'Font complementaria',
+    fontTerciaria: 'Font terciaria',
+    usoPrimarias: 'Uso: encabezados principales y subtítulos destacados.',
+    usoSecundarias: 'Uso: subtítulos y títulos de sección.',
+    usoTerciarias: 'Uso: captions, metadatos y detalles técnicos.',
+    logotiposTitle: 'Logotipos',
+    logotiposIntro: 'La identidad consta de 3 variantes y un logotipo compuesto por icono y leyendas de complemento. La flexibilidad es amplia, evocando modernidad y estilo en aplicaciones impresas y digitales.',
+    logoPrincipal: '01. Logotipo principal',
+    logoSecundario: '02. Logotipo secundario',
+    imagotipo: '03. Imagotipo',
+    logoSimple: '04. Logotipo simple',
+    aplicacionesTitle: 'Aplicaciones',
+    aplicacionesIntro: 'Prototipo interactivo de la aplicación del logotipo.',
+    ratingSaved: 'Calificación guardada',
+    writeCommentFirst: 'Escribe tu comentario antes de enviar.',
+    anonymous: 'Anónimo',
+    commentSavedToast: 'Comentario guardado. Recuerda dar clic en Terminar evaluación para enviar.',
+    evaluationSent: 'Evaluación enviada. ¡Muchas gracias!',
+    clientView: 'Vista cliente',
+    comments: 'Comentarios',
+    ratingWord: 'Calificación',
+    likes: 'Me gusta',
+    dislikes: 'No me gusta',
+    colorsEditHex: 'Colores — editar hex',
+    saveChanges: 'Guardar cambios',
+    markForReview: 'Marcar para re-revisión',
+    reviewed: 'Revisado',
+    markReviewed: 'Marcar revisado',
+    noComments: 'Sin comentarios en esta paleta.',
+    paletteMarkedForReview: 'Paleta marcada para re-revisión',
+    dataExported: 'Datos exportados',
+    confirmDeleteData: '¿Borrar todos los datos? Esta acción no se puede deshacer.',
+    dataDeleted: 'Datos eliminados',
+    updatedBadge: 'Actualizado',
+    newSingular: 'nuevo',
+    newPlural: 'nuevos',
+    voteSingular: 'voto',
+    votePlural: 'votos',
+    updatedNotice: d => `El diseñador actualizó esta paleta el ${d}.`,
+    changesSaved: n => `Cambios guardados — Palette ${n}`
+  },
+  en: {
+    sections: 'Sections',
+    navColores: 'Colors',
+    navTipografias: 'Typography',
+    navLogotipos: 'Logos',
+    navAplicaciones: 'Applications',
+    navEntregables: 'Deliverables & Links',
+    navDocumentacion: 'Documentation',
+    finishBtn: 'Finish evaluation',
+    creditHtml: 'Designed and built by <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
+    openMenu: 'Open menu',
+    welcomeEyebrow: 'Today Coffee · Visual identity',
+    welcomeTitle: 'Choose your brand colors',
+    welcomeBodyHtml: 'We\'ve prepared six color palettes designed for your brand, its style and vision. Take your time exploring each one, vote for the colors that represent you best, and leave your comments. When you\'re done, click <strong>Finish evaluation</strong> in the side menu to save and submit your responses.',
+    startBtn: 'Start',
+    confirmEyebrow: 'Today Coffee · Evaluation',
+    confirmTitle: 'Ready to submit?',
+    confirmBody: 'You\'re about to submit your evaluation of the color palettes. Your votes, ratings, and comments will be recorded. You can submit as many times as you like — each submission is saved separately.',
+    keepEvaluating: 'Keep evaluating',
+    sendResponses: 'Submit my responses',
+    paletteEyebrow: 'Color palette',
+    rateLabel: 'Rate this palette',
+    colorsLabel: 'Colors',
+    shareOpinion: 'Share your feedback',
+    feedbackHint: 'Let us know what you like, don\'t like, or which colors you like most for your brand.',
+    yourName: 'Your name',
+    feedbackPlaceholder: 'Which colors catch your eye? What feeling does this palette convey?',
+    commentSaved: 'Comment saved.',
+    clear: 'Clear',
+    submitComment: 'Submit comment',
+    designReview: 'Design Review',
+    clientFeedback: 'Client feedback',
+    exportJson: 'Export JSON',
+    clearDataBtn: 'Clear data',
+    identidadVisual: 'Visual identity',
+    tipografiasTitle: 'Typography',
+    tipografiasIntro: '3 font styles that create flexibility in the editorial design, complementing the warmth and elegance of the primary logo.',
+    tabPrimarias: 'Primary',
+    tabSecundarias: 'Secondary',
+    tabTerciarias: 'Tertiary',
+    fontPrincipal: 'Primary font',
+    fontComplementaria: 'Secondary font',
+    fontTerciaria: 'Tertiary font',
+    usoPrimarias: 'Use: main headings and featured subtitles.',
+    usoSecundarias: 'Use: subtitles and section titles.',
+    usoTerciarias: 'Use: captions, metadata, and technical details.',
+    logotiposTitle: 'Logos',
+    logotiposIntro: 'The identity consists of 3 variants and a logo made up of an icon and complementary lockups. Its flexibility is broad, evoking modernity and style across print and digital applications.',
+    logoPrincipal: '01. Primary logo',
+    logoSecundario: '02. Secondary logo',
+    imagotipo: '03. Combination mark',
+    logoSimple: '04. Simple logo',
+    aplicacionesTitle: 'Applications',
+    aplicacionesIntro: 'Interactive prototype of the logo application.',
+    ratingSaved: 'Rating saved',
+    writeCommentFirst: 'Write your comment before submitting.',
+    anonymous: 'Anonymous',
+    commentSavedToast: 'Comment saved. Remember to click Finish evaluation to submit.',
+    evaluationSent: 'Evaluation submitted. Thank you so much!',
+    clientView: 'Client view',
+    comments: 'Comments',
+    ratingWord: 'Rating',
+    likes: 'Likes',
+    dislikes: 'Dislikes',
+    colorsEditHex: 'Colors — edit hex',
+    saveChanges: 'Save changes',
+    markForReview: 'Mark for re-review',
+    reviewed: 'Reviewed',
+    markReviewed: 'Mark reviewed',
+    noComments: 'No comments on this palette yet.',
+    paletteMarkedForReview: 'Palette marked for re-review',
+    dataExported: 'Data exported',
+    confirmDeleteData: 'Delete all data? This action cannot be undone.',
+    dataDeleted: 'Data deleted',
+    updatedBadge: 'Updated',
+    newSingular: 'new',
+    newPlural: 'new',
+    voteSingular: 'vote',
+    votePlural: 'votes',
+    updatedNotice: d => `The designer updated this palette on ${d}.`,
+    changesSaved: n => `Changes saved — Palette ${n}`
+  }
+};
+const t = key => I18N[LANG][key];
+
+function applyStaticI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = t(el.dataset.i18n);
+    if (val != null) el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const val = t(el.dataset.i18nHtml);
+    if (val != null) el.innerHTML = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const val = t(el.dataset.i18nPlaceholder);
+    if (val != null) el.placeholder = val;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const val = t(el.dataset.i18nAria);
+    if (val != null) el.setAttribute('aria-label', val);
+  });
+  document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+    const val = t(el.dataset.i18nAlt);
+    if (val != null) el.setAttribute('alt', val);
+  });
+}
+
 // ── Palette data ──
 const PALETTES = [
   { id:0, name:'Miel y Campo', img:'assets/images/palette1.png',
@@ -1486,7 +1682,7 @@ function renderClientView() {
   const p  = PALETTES[current];
   const ps = st.palettes[current];
 
-  document.getElementById('p-eyebrow').textContent = 'Paleta de colores';
+  document.getElementById('p-eyebrow').textContent = t('paletteEyebrow');
   document.getElementById('p-title').textContent   = p.name;
 
   // Stars
@@ -1500,8 +1696,8 @@ function renderClientView() {
   if (ps.updated) {
     const notice = document.createElement('div');
     notice.className = 'updated-notice';
-    const d = new Date(ps.updatedAt).toLocaleDateString('es-MX', { day:'numeric', month:'long' });
-    notice.textContent = `El diseñador actualizó esta paleta el ${d}.`;
+    const d = new Date(ps.updatedAt).toLocaleDateString(DATE_LOCALE, { day:'numeric', month:'long' });
+    notice.textContent = t('updatedNotice')(d);
     document.getElementById('swatches-label').before(notice);
   }
 
@@ -1541,7 +1737,7 @@ function renderFeedbackList(ps) {
   if (!ps.feedback.length) { wrap.innerHTML = ''; return; }
   wrap.innerHTML = `
     <div class="fb-list">
-      <div class="fb-list-label">Comentarios (${ps.feedback.length})</div>
+      <div class="fb-list-label">${t('comments')} (${ps.feedback.length})</div>
       ${ps.feedback.map(fb => `
         <div class="fb-item">
           <div class="fb-item-top">
@@ -1567,7 +1763,8 @@ function updateRatingAvg(ps) {
   const el = document.getElementById('rating-avg');
   if (!ps.ratings.length) { el.textContent = ''; return; }
   const avg = (ps.ratings.reduce((a,b)=>a+b,0)/ps.ratings.length).toFixed(1);
-  el.textContent = `${avg} / 5 · ${ps.ratings.length} voto${ps.ratings.length>1?'s':''}`;
+  const voteWord = ps.ratings.length === 1 ? t('voteSingular') : t('votePlural');
+  el.textContent = `${avg} / 5 · ${ps.ratings.length} ${voteWord}`;
 }
 
 document.querySelectorAll('#stars .star-btn').forEach(btn => {
@@ -1582,7 +1779,7 @@ document.querySelectorAll('#stars .star-btn').forEach(btn => {
     saveState(st);
     updateRatingAvg(st.palettes[current]);
     renderNav();
-    showToast('Calificación guardada');
+    showToast(t('ratingSaved'));
   });
 });
 
@@ -1610,15 +1807,15 @@ function vote(ci, dir) {
 function submitFeedback() {
   const name = document.getElementById('fb-name').value.trim();
   const text = document.getElementById('fb-text').value.trim();
-  if (!text) { showToast('Escribe tu comentario antes de enviar.'); return; }
+  if (!text) { showToast(t('writeCommentFirst')); return; }
 
   const st = getState();
   st.palettes[current].feedback.push({
     id:       Date.now(),
-    name:     name || 'Anónimo',
+    name:     name || t('anonymous'),
     text,
     rating:   pendingStar || null,
-    date:     new Date().toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'}),
+    date:     new Date().toLocaleDateString(DATE_LOCALE,{day:'numeric',month:'long',year:'numeric'}),
     timestamp:new Date().toISOString(),
     reviewed: false
   });
@@ -1631,7 +1828,7 @@ function submitFeedback() {
 
   renderFeedbackList(st.palettes[current]);
   renderNav();
-  showToast('Comentario guardado. Recuerda dar clic en Terminar evaluación para enviar.');
+  showToast(t('commentSavedToast'));
 }
 
 // ── Confirmation overlay ──
@@ -1676,7 +1873,7 @@ function submitFullEvaluation() {
   });
 
   cancelSubmit();
-  showToast('Evaluación enviada. ¡Muchas gracias!');
+  showToast(t('evaluationSent'));
   setTimeout(resetEvaluation, 1800);
 }
 
@@ -1717,7 +1914,7 @@ function toggleAdmin() {
   const mobileBtn = document.getElementById('btn-finish-mobile');
   if (mobileBtn) mobileBtn.style.display = adminMode ? 'none' : '';
   const btn = document.getElementById('admin-btn');
-  btn.textContent = adminMode ? 'Vista cliente' : 'Design Review';
+  btn.textContent = adminMode ? t('clientView') : t('designReview');
   btn.classList.toggle('on', adminMode);
   renderNav();
   if (adminMode) renderAdminView();
@@ -1744,18 +1941,18 @@ function renderAdminView() {
     block.innerHTML = `
       <div class="admin-palette-name">
         ${p.name}
-        ${ps.updated   ? '<span class="badge badge-green">Actualizado</span>' : ''}
-        ${unread > 0   ? `<span class="badge badge-gold">${unread} nuevo${unread>1?'s':''}</span>` : ''}
+        ${ps.updated   ? `<span class="badge badge-green">${t('updatedBadge')}</span>` : ''}
+        ${unread > 0   ? `<span class="badge badge-gold">${unread} ${unread>1?t('newPlural'):t('newSingular')}</span>` : ''}
       </div>
 
       <div class="stats-row">
-        <div><div class="stat-val">${totalFb}</div><div class="stat-label">Comentarios</div></div>
-        <div><div class="stat-val">${avgR}</div><div class="stat-label">Calificación</div></div>
-        <div><div class="stat-val vote-up-num">${totalUp}</div><div class="stat-label">Me gusta</div></div>
-        <div><div class="stat-val vote-dn-num">${totalDn}</div><div class="stat-label">No me gusta</div></div>
+        <div><div class="stat-val">${totalFb}</div><div class="stat-label">${t('comments')}</div></div>
+        <div><div class="stat-val">${avgR}</div><div class="stat-label">${t('ratingWord')}</div></div>
+        <div><div class="stat-val vote-up-num">${totalUp}</div><div class="stat-label">${t('likes')}</div></div>
+        <div><div class="stat-val vote-dn-num">${totalDn}</div><div class="stat-label">${t('dislikes')}</div></div>
       </div>
 
-      <div class="section-label">Colores — editar hex</div>
+      <div class="section-label">${t('colorsEditHex')}</div>
       <div class="admin-swatches">
         ${ps.colors.map((c, ci) => {
           const sw = ps.swatches[ci] || {up:0,down:0};
@@ -1781,13 +1978,13 @@ function renderAdminView() {
       </div>
 
       <div class="palette-actions">
-        <button class="btn-accent" onclick="saveColors(${pi})">Guardar cambios</button>
-        <button class="btn-review" onclick="markReview(${pi})">Marcar para re-revisión</button>
+        <button class="btn-accent" onclick="saveColors(${pi})">${t('saveChanges')}</button>
+        <button class="btn-review" onclick="markReview(${pi})">${t('markForReview')}</button>
       </div>
 
       ${totalFb > 0 ? `
         <div style="margin-top:24px;">
-          <div class="section-label">Comentarios</div>
+          <div class="section-label">${t('comments')}</div>
           ${ps.feedback.map((fb, fi) => `
             <div class="admin-fb-entry">
               <div class="admin-fb-meta">
@@ -1796,14 +1993,14 @@ function renderAdminView() {
                   ${fb.rating ? `<span class="admin-fb-stars">${'★'.repeat(fb.rating)}</span>` : ''}
                   <span class="admin-fb-date">${fb.date}</span>
                   <button class="mark-btn${fb.reviewed?' done':''}"
-                    onclick="markRead(${pi},${fi})">${fb.reviewed?'Revisado':'Marcar revisado'}</button>
+                    onclick="markRead(${pi},${fi})">${fb.reviewed?t('reviewed'):t('markReviewed')}</button>
                 </span>
               </div>
               <div class="admin-fb-text">${escHtml(fb.text)}</div>
             </div>
           `).join('')}
         </div>
-      ` : `<div class="empty" style="margin-top:16px;">Sin comentarios en esta paleta.</div>`}
+      ` : `<div class="empty" style="margin-top:16px;">${t('noComments')}</div>`}
     `;
     box.appendChild(block);
   });
@@ -1840,7 +2037,7 @@ function saveColors(pi) {
   saveState(st);
   renderAdminView();
   renderNav();
-  showToast(`Cambios guardados — Palette ${pi + 1}`);
+  showToast(t('changesSaved')(pi + 1));
 }
 
 function markReview(pi) {
@@ -1848,7 +2045,7 @@ function markReview(pi) {
   st.palettes[pi].updated = false;
   saveState(st);
   renderAdminView();
-  showToast('Paleta marcada para re-revisión');
+  showToast(t('paletteMarkedForReview'));
 }
 
 function markRead(pi, fi) {
@@ -1869,16 +2066,16 @@ function exportData() {
   a.download = `todaycoffee-feedback-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('Datos exportados');
+  showToast(t('dataExported'));
 }
 
 function clearData() {
-  if (!confirm('¿Borrar todos los datos? Esta acción no se puede deshacer.')) return;
+  if (!confirm(t('confirmDeleteData'))) return;
   localStorage.removeItem(KEY);
   pendingStar = 0;
   renderAdminView();
   renderNav();
-  showToast('Datos eliminados');
+  showToast(t('dataDeleted'));
 }
 
 // ── Toast ──
@@ -1936,6 +2133,7 @@ if (new URLSearchParams(window.location.search).has('review')) {
   document.getElementById('sidebar-footer').style.display = 'block';
 }
 
+applyStaticI18n();
 renderNav();
 renderClientView();
 updateFinishVisibility();
