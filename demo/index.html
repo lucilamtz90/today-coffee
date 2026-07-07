@@ -136,6 +136,24 @@ body {
 
 .tab-btn:disabled:hover { background: none; color: var(--muted-light); }
 
+.nav-status-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.nav-status-tag.status-progress { background: #FCEEDC; color: #B0611E; }
+.nav-status-tag.status-todo     { background: #EBEDF0; color: #667085; }
+
 .tab-dot {
   width: 10px;
   height: 10px;
@@ -1172,13 +1190,30 @@ input[type="color"] {
 
   <nav class="sidebar-nav" id="main-nav">
     <div class="nav-section-label" data-i18n="sections">Secciones</div>
-    <button class="tab-btn active" data-section="bienvenida" data-i18n="navBienvenida" onclick="switchSection('bienvenida')">Bienvenida</button>
-    <button class="tab-btn" data-section="colores" data-i18n="navColores" onclick="switchSection('colores')">Colores</button>
-    <button class="tab-btn" data-section="tipografias" data-i18n="navTipografias" onclick="switchSection('tipografias')">Tipografías</button>
-    <button class="tab-btn" data-section="logotipos" data-i18n="navLogotipos" onclick="switchSection('logotipos')">Logotipos</button>
-    <button class="tab-btn" data-section="aplicaciones" data-i18n="navAplicaciones" onclick="switchSection('aplicaciones')">Aplicaciones</button>
-    <button class="tab-btn" data-i18n="navEntregables" disabled>Entregables y Links</button>
-    <button class="tab-btn" data-i18n="navDocumentacion" disabled>Documentación</button>
+    <button class="tab-btn active" data-section="bienvenida" onclick="switchSection('bienvenida')">
+      <span data-i18n="navBienvenida">Bienvenida</span>
+    </button>
+    <button class="tab-btn" data-section="colores" onclick="switchSection('colores')">
+      <span data-i18n="navColores">Colores</span>
+      <span class="nav-status-tag status-progress" data-i18n="statusInProgress">En progreso</span>
+    </button>
+    <button class="tab-btn" data-section="tipografias" onclick="switchSection('tipografias')">
+      <span data-i18n="navTipografias">Tipografías</span>
+    </button>
+    <button class="tab-btn" data-section="logotipos" onclick="switchSection('logotipos')">
+      <span data-i18n="navLogotipos">Logotipos</span>
+    </button>
+    <button class="tab-btn" data-section="aplicaciones" onclick="switchSection('aplicaciones')">
+      <span data-i18n="navAplicaciones">Aplicaciones</span>
+    </button>
+    <button class="tab-btn" disabled>
+      <span data-i18n="navEntregables">Entregables y Links</span>
+      <span class="nav-status-tag status-todo" data-i18n="statusTodo">Por hacer</span>
+    </button>
+    <button class="tab-btn" disabled>
+      <span data-i18n="navDocumentacion">Documentación</span>
+      <span class="nav-status-tag status-todo" data-i18n="statusTodo">Por hacer</span>
+    </button>
   </nav>
 
   <div class="sidebar-finish" id="sidebar-finish">
@@ -1482,6 +1517,8 @@ const I18N = {
     navAplicaciones: 'Aplicaciones',
     navEntregables: 'Entregables y Links',
     navDocumentacion: 'Documentación',
+    statusInProgress: 'En progreso',
+    statusTodo: 'Por hacer',
     finishBtn: 'Terminar evaluación',
     creditHtml: 'Diseñado e implementado por <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
     openMenu: 'Abrir menú',
@@ -1581,6 +1618,8 @@ const I18N = {
     navAplicaciones: 'Applications',
     navEntregables: 'Deliverables & Links',
     navDocumentacion: 'Documentation',
+    statusInProgress: 'In progress',
+    statusTodo: 'To do',
     finishBtn: 'Finish evaluation',
     creditHtml: 'Designed and built by <a href="https://www.linkedin.com/in/lucilamreyes/" target="_blank" rel="noopener noreferrer">Lucila Martínez</a> 💖',
     openMenu: 'Open menu',
