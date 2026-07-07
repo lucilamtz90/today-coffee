@@ -1000,7 +1000,8 @@ input[type="color"] {
   .palette-header { flex-direction: column; gap: 18px; }
   .overall-rating { align-items: flex-start; }
   .swatches-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-  .h-tabs { max-height: 108px; overflow-y: auto; overflow-x: hidden; flex-wrap: wrap; }
+  .h-tabs { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .h-tab-btn { flex-shrink: 0; }
 }
 
 @media (max-width: 480px) {
